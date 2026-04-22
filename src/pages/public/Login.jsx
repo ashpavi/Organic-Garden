@@ -39,7 +39,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-green-50 flex items-center justify-center px-4">
 
       <div className="bg-white w-full max-w-md p-8 rounded-2xl shadow-lg">
 
@@ -50,8 +50,8 @@ export default function Login() {
         >
           <img
             src={logo}
-            alt="LuxeStore"
-            className="w-20 h-20 object-contain rounded-full border-b-1 p-1 shadow-sm"
+            alt="Organic Garden Logo"
+            className="w-25 h-20 object-contain rounded-full  shadow-md"
           />
 
           
@@ -97,7 +97,7 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
-              className="w-full bg-gray-100 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-gray-100 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-600"
             />
           </div>
 
@@ -117,7 +117,7 @@ export default function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className="w-full bg-gray-100 rounded-lg px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-gray-100 rounded-lg px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-green-600"
               />
 
               <button
@@ -137,7 +137,7 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+            className="w-full bg-green-700 text-white py-3 rounded-lg hover:bg-green-800 transition disabled:opacity-50"
           >
             {loading ? "Logging in..." : "Login"}
           </button>
@@ -150,7 +150,7 @@ export default function Login() {
           Don’t have an account?{" "}
           <Link
             to="/register"
-            className="text-blue-600 hover:underline"
+            className="text-green-600 hover:underline"
           >
             Register
           </Link>

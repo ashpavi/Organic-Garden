@@ -17,14 +17,16 @@ export default function Navbar() {
 
   const desktopNavClass = ({ isActive }) =>
     `transition-colors duration-200 ${
-      isActive ? "text-blue-600 font-semibold" : "text-gray-600 hover:text-blue-600"
+      isActive
+        ? "text-green-700 font-semibold"
+        : "text-gray-600 hover:text-green-600"
     }`;
 
   const mobileNavClass = ({ isActive }) =>
     `rounded-lg px-2 py-1 transition-colors duration-200 ${
       isActive
-        ? "text-blue-700 bg-blue-50 font-semibold"
-        : "text-gray-700 hover:text-blue-700 hover:bg-blue-50"
+        ? "text-green-800 bg-green-50 font-semibold"
+        : "text-gray-700 hover:text-green-700 hover:bg-green-50"
     }`;
 
   const [isOpen, setIsOpen] = useState(false);
@@ -72,7 +74,7 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ================= NAVBAR ================= */}
+      {/* NAVBAR */}
       <nav className="bg-white shadow-sm relative z-50">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
 
@@ -85,13 +87,12 @@ export default function Navbar() {
               <FaBars size={20} />
             </button>
 
-            <Link to="/" className="flex items-center space-x-2">
+            <Link to="/" className="flex items-center space-x-1">
               <img
                 src={logo}
                 alt="Logo"
-                className="w-14 h-14 object-contain rounded-full border-b-1 p-1 shadow-sm"
+                className="w-16 h-14 object-contain rounded-full shadow-sm"
               />
-              
             </Link>
 
             <div className="hidden md:flex space-x-6 ml-6 font-medium">
@@ -112,7 +113,7 @@ export default function Navbar() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search products..."
-              className="w-full bg-gray-100 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full bg-gray-100 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-600"
             />
           </form>
 
@@ -121,15 +122,15 @@ export default function Navbar() {
 
             {/* CART */}
             <Link to="/cart" className="relative">
-              <FaShoppingCart className="text-blue-900 hover:text-blue-700" size={18} />
+              <FaShoppingCart className="text-green-800 hover:text-green-600" size={18} />
               {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs px-1.5 py-0.5 rounded-full">
+                <span className="absolute -top-2 -right-2 bg-green-600 text-white text-xs px-1.5 py-0.5 rounded-full">
                   {totalItems}
                 </span>
               )}
             </Link>
 
-            {/* ================= NOT LOGGED IN ================= */}
+            {/* NOT LOGGED IN */}
             {!currentUser && (
               <div className="hidden md:flex items-center space-x-4">
                 <NavLink
@@ -137,8 +138,8 @@ export default function Navbar() {
                   className={({ isActive }) =>
                     `px-4 py-2 rounded-full text-sm font-medium transition ${
                       isActive
-                        ? "bg-blue-500 text-white"
-                        : "bg-blue-300 text-black hover:bg-blue-400"
+                        ? "bg-green-600 text-white"
+                        : "bg-green-300 text-black hover:bg-green-400"
                     }`
                   }
                 >
@@ -150,8 +151,8 @@ export default function Navbar() {
                   className={({ isActive }) =>
                     `px-4 py-2 rounded-full text-sm font-medium transition ${
                       isActive
-                        ? "bg-blue-800 text-white"
-                        : "bg-blue-600 text-white hover:bg-blue-700"
+                        ? "bg-green-800 text-white"
+                        : "bg-green-600 text-white hover:bg-green-700"
                     }`
                   }
                 >
@@ -160,7 +161,7 @@ export default function Navbar() {
               </div>
             )}
 
-            {/* ================= LOGGED IN ================= */}
+            {/* LOGGED IN */}
             {currentUser && (
               <div className="flex items-center space-x-4">
 
@@ -168,7 +169,7 @@ export default function Navbar() {
                   onClick={handleUserClick}
                   className="flex items-center bg-gray-100 space-x-2 hover:bg-gray-200 px-3 py-2 rounded-full transition cursor-pointer"
                 >
-                  <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-semibold">
+                  <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-semibold">
                     {firstName.charAt(0).toUpperCase()}
                   </div>
 
@@ -191,7 +192,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* ================= OVERLAY ================= */}
+      {/* OVERLAY */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
@@ -199,7 +200,7 @@ export default function Navbar() {
         />
       )}
 
-      {/* ================= SIDE DRAWER ================= */}
+      {/* SIDE DRAWER */}
       <div
         className={`fixed top-0 left-0 h-full w-72 bg-white shadow-2xl z-50 transform transition-transform duration-300 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
@@ -220,7 +221,7 @@ export default function Navbar() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search products..."
-              className="w-full bg-gray-100 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full bg-gray-100 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-400"
             />
           </form>
 
@@ -232,15 +233,14 @@ export default function Navbar() {
 
             {!currentUser && (
               <div className="flex flex-col gap-3 mt-4">
-
                 <NavLink
                   to="/login"
                   onClick={() => setIsOpen(false)}
                   className={({ isActive }) =>
                     `text-center px-4 py-2 rounded-full text-sm font-medium transition ${
                       isActive
-                        ? "bg-blue-500 text-white"
-                        : "bg-blue-300 text-black hover:bg-blue-400"
+                        ? "bg-green-600 text-white"
+                        : "bg-green-300 text-black hover:bg-green-400"
                     }`
                   }
                 >
@@ -253,28 +253,23 @@ export default function Navbar() {
                   className={({ isActive }) =>
                     `text-center px-4 py-2 rounded-full text-sm font-medium transition ${
                       isActive
-                        ? "bg-blue-800 text-white"
-                        : "bg-blue-600 text-white hover:bg-blue-700"
+                        ? "bg-green-800 text-white"
+                        : "bg-green-600 text-white hover:bg-green-700"
                     }`
                   }
                 >
                   Register
                 </NavLink>
-
               </div>
             )}
 
             {currentUser && (
-              <>
-                
-
-                <button
-                  onClick={handleLogout}
-                  className="px-4 py-2 mt-5 rounded-full text-sm font-medium transition bg-red-500 text-white hover:bg-red-600"
-                >
-                  Logout
-                </button>
-              </>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 mt-5 rounded-full text-sm font-medium transition bg-red-500 text-white hover:bg-red-600"
+              >
+                Logout
+              </button>
             )}
           </div>
 

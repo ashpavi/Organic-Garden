@@ -19,38 +19,33 @@ const Footer = () => {
           />
 
           <p className="text-gray-400 text-sm mt-4 leading-relaxed max-w-xs">
-            Modern streetwear crafted for comfort, style, and individuality.
+            At Organic Garden, we are passionate about bringing nature's finest herbs and remedies to your doorstep.
           </p>
 
           {/* SOCIALS */}
           <div className="flex gap-4 mt-4">
             {/* Facebook */}
-            <a href="https://www.facebook.com/share/178v1xSPYV/?mibextid=wwXIfr" className="group w-10 h-10 flex items-center justify-center rounded-full bg-gray-900 border border-gray-700 hover:bg-white transition">
+            <a href="https://www.facebook.com/share/1CB2JxCvWt/?mibextid=wwXIfr" className="group w-10 h-10 flex items-center justify-center rounded-full bg-gray-900 border border-gray-700 hover:bg-white transition">
               <svg className="w-4 h-4 text-gray-400 group-hover:text-black transition" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
               </svg>
             </a>
 
             {/* Instagram */}
-            <a href="https://www.instagram.com/wavoclothing?igsh=bm42a2IwNXVyZ3Ey&utm_source=qr" className="group w-10 h-10 flex items-center justify-center rounded-full bg-gray-900 border border-gray-700 hover:bg-white transition">
+            <a href="https://www.instagram.com/organicgardenlk/" className="group w-10 h-10 flex items-center justify-center rounded-full bg-gray-900 border border-gray-700 hover:bg-white transition">
               <svg className="w-4 h-4 text-gray-400 group-hover:text-black transition" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M7 2C4.8 2 3 3.8 3 6v12c0 2.2 1.8 4 4 4h10c2.2 0 4-1.8 4-4V6c0-2.2-1.8-4-4-4H7zm5 5a5 5 0 110 10 5 5 0 010-10zm6.5-.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM12 9a3 3 0 100 6 3 3 0 000-6z"/>
               </svg>
             </a>
 
             {/* WhatsApp */}
-            <a href="https://wa.me/94765358085" className="group w-10 h-10 flex items-center justify-center rounded-full bg-gray-900 border border-gray-700 hover:bg-white transition">
+            <a href="https://wa.me/+94767679434" className="group w-10 h-10 flex items-center justify-center rounded-full bg-gray-900 border border-gray-700 hover:bg-white transition">
               <svg className="w-4 h-4 text-gray-400 group-hover:text-black transition" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M20.52 3.48A11.77 11.77 0 0012.01 0C5.37 0 .02 5.35.02 11.99c0 2.11.55 4.17 1.6 5.98L0 24l6.2-1.62a11.94 11.94 0 005.81 1.48h.01c6.63 0 11.99-5.35 11.99-11.99 0-3.2-1.25-6.2-3.49-8.39z"/>
               </svg>
             </a>
 
-            {/* TikTok */}
-            <a href="https://www.tiktok.com/@wavo_clothing?_r=1&_t=ZS-94xaL9SKIVA" className="group w-10 h-10 flex items-center justify-center rounded-full bg-gray-900 border border-gray-700 hover:bg-white transition">
-              <svg className="w-4 h-4 text-gray-400 group-hover:text-black transition" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2h3a5 5 0 005 5v3a8 8 0 01-5-1.8V16a6 6 0 11-6-6h1v3h-1a3 3 0 103 3V2z"/>
-              </svg>
-            </a>
+            
 
           </div>
         </div>
@@ -75,7 +70,6 @@ const Footer = () => {
           <ul className="space-y-4 text-sm">
             <li><Link to="/contactUs" className="hover:text-gray-300 transition">Help Center</Link></li>
             <li><Link to="/contactUs" className="hover:text-gray-300 transition">Shipping & Returns</Link></li>
-            <li><Link to="/sizeGuide" className="hover:text-gray-300 transition">Size Guide</Link></li>
             <li><Link to="/contactUs" className="hover:text-gray-300 transition">Contact Us</Link></li>
           </ul>
         </div>
@@ -100,8 +94,8 @@ const Footer = () => {
 
       {/* BOTTOM */}
       <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
-        <p>© 2026 WAVO Clothing</p>
-        <p>Designed for modern streetwear culture</p>
+        <p>© 2026 Organic Garden</p>
+        <p>Rooted in nature. Delivered with trust</p>
       </div>
     </footer>
   );
