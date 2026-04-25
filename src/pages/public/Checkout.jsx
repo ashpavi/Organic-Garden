@@ -242,7 +242,7 @@ export default function Checkout() {
                 <button
                   onClick={()=>setPaymentMethod("bankTransfer")}
                   className={`p-4 border rounded-xl ${
-                    paymentMethod==="bankTransfer" && "border-blue-600 bg-blue-50"
+                    paymentMethod==="bankTransfer" && "border-green-700 bg-blue-50"
                   }`}
                 >
                   <FaUniversity /> Bank Transfer
@@ -251,7 +251,7 @@ export default function Checkout() {
                 <button
                   onClick={()=>setPaymentMethod("cod")}
                   className={`p-4 border rounded-xl ${
-                    paymentMethod==="cod" && "border-blue-600 bg-blue-50"
+                    paymentMethod==="cod" && "border-green-700 bg-blue-50"
                   }`}
                 >
                   <FaMoneyBillWave /> COD
@@ -263,7 +263,7 @@ export default function Checkout() {
               {paymentMethod === "bankTransfer" && bankDetails && (
                 <div className="mt-4 p-5 border rounded-xl bg-blue-50 space-y-4">
 
-                  <h4 className="font-semibold text-blue-700">
+                  <h4 className="font-semibold text-green-800">
                     Bank Transfer Details
                   </h4>
 
@@ -322,7 +322,7 @@ export default function Checkout() {
               onClick={handlePlaceOrder}
               disabled={loading}
               className={`w-full py-3 rounded-xl text-white ${
-                loading ? "bg-gray-400" : "bg-black hover:bg-gray-800"
+                loading ? "bg-gray-400" : "bg-amber-900 hover:bg-amber-950"
               }`}
             >
               {loading ? "Placing..." : "Place Order"}

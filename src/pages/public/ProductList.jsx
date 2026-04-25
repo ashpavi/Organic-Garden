@@ -87,7 +87,7 @@ export default function ProductList() {
             : "Discover the best products curated for you"}
         </p>
 
-        <div className="w-24 h-1 bg-blue-600 mx-auto mt-4 rounded"></div>
+        <div className="w-24 h-1 bg-green-600 mx-auto mt-4 rounded"></div>
 
       </div>
 
@@ -98,7 +98,7 @@ export default function ProductList() {
 
         <button
           onClick={() => setShowFilters(true)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow"
+          className="px-4 py-2 bg-amber-950 text-white rounded-lg shadow"
         >
           Filters
         </button>
@@ -127,7 +127,7 @@ export default function ProductList() {
         <aside
           className={`
           fixed lg:static top-0 left-0 h-full w-72 bg-white z-40
-          pt-20 lg:pt-6 px-6 pb-6 shadow-lg lg:shadow-none
+          pt-35 lg:pt-4 px-6 pb-6 shadow-lg lg:shadow-none
           transform ${showFilters ? "translate-x-0" : "-translate-x-full"}
           lg:translate-x-0 transition-transform duration-300
         `}
@@ -159,6 +159,7 @@ export default function ProductList() {
 
               <input
                 type="radio"
+                className="accent-green-600 cursor-pointer"
                 checked={selectedCategory === "All"}
                 onChange={() => updateFilter("category", "All")}
               />
@@ -177,6 +178,7 @@ export default function ProductList() {
 
                 <input
                   type="radio"
+                  className="accent-green-600 cursor-pointer"
                   checked={selectedCategory === cat.name}
                   onChange={() =>
                     updateFilter("category", cat.name)
@@ -209,6 +211,7 @@ export default function ProductList() {
 
                 <input
                   type="radio"
+                  className="accent-green-600 cursor-pointer"
                   checked={selectedBrand === brand}
                   onChange={() =>
                     updateFilter("brand", brand)
@@ -236,11 +239,12 @@ export default function ProductList() {
               type="range"
               min="0"
               max="50000"
+              
               value={priceRange}
               onChange={(e) =>
                 updateFilter("maxPrice", e.target.value)
               }
-              className="w-full"
+              className="accent-green-600 cursor-pointer w-full"
             />
 
             <p className="text-sm text-gray-500 mt-2">
@@ -254,7 +258,7 @@ export default function ProductList() {
 
           <button
             onClick={() => setSearchParams({})}
-            className="w-full bg-gray-900 text-white py-2 rounded-lg hover:bg-gray-800"
+            className="w-full bg-amber-900 text-white py-2 rounded-lg hover:bg-amber-950"
           >
             Reset Filters
           </button>

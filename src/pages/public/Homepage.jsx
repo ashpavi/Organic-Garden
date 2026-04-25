@@ -181,7 +181,7 @@ export default function HomePage() {
         )}
 
         {/* OVERLAY */}
-        <div className="absolute inset-0 bg-[#19062e]/60"></div>
+        <div className="absolute inset-0 bg-green-900/60"></div>
 
         <div className="relative max-w-7xl mx-auto px-4 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
@@ -195,7 +195,7 @@ export default function HomePage() {
           <button
             type="button"
             onClick={() => navigate("/products")}
-            className="mt-8 bg-[#7b6bee] text-white px-8 py-3 rounded-xl font-semibold hover:bg-[#8b7cf1] transition cursor-pointer"
+            className="mt-8 bg-green-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-green-700 transition cursor-pointer"
           >
             Explore Deals
           </button>

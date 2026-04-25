@@ -26,14 +26,14 @@ export default function OrderSummary({ subtotal }) {
         <span>{formatPrice(subtotal)}</span>
       </div>
 
-      {/* 💡 FREE DELIVERY MESSAGE */}
+      {/*  FREE DELIVERY MESSAGE */}
       {!isFreeDelivery && subtotal > 0 && (
         <p className="text-sm text-orange-600 font-medium">
           Spend {formatPrice(5000 - subtotal)} more to get FREE delivery 🚚
         </p>
       )}
 
-      {/* 🚚 DELIVERY FEE */}
+      {/*  DELIVERY FEE */}
       {!isFreeDelivery && subtotal > 0 && (
         <div className="flex justify-between text-gray-600">
           <span>Delivery</span>
@@ -41,7 +41,7 @@ export default function OrderSummary({ subtotal }) {
         </div>
       )}
 
-      {/* ✅ FREE DELIVERY UNLOCKED */}
+      {/*  FREE DELIVERY UNLOCKED */}
       {isFreeDelivery && subtotal > 0 && (
         <div className="flex justify-between text-green-600 font-medium">
           <span>Delivery</span>
@@ -64,7 +64,7 @@ export default function OrderSummary({ subtotal }) {
         className={`w-full py-3 rounded-lg text-white transition
           ${isDisabled
             ? "bg-gray-400 cursor-not-allowed"
-            : "bg-blue-600 hover:bg-blue-700"
+            : "bg-green-700 hover:bg-green-800"
           }`}
       >
         Proceed to Checkout →

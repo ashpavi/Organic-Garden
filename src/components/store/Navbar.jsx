@@ -121,10 +121,10 @@ export default function Navbar() {
           <div className="flex items-center space-x-6 text-gray-700">
 
             {/* CART */}
-            <Link to="/cart" className="relative">
+            <Link to="/cart" className="relative pr-1">
               <FaShoppingCart className="text-green-800 hover:text-green-600" size={18} />
               {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-green-600 text-white text-xs px-1.5 py-0.5 rounded-full">
+                <span className="absolute -top-2 -right-2 bg-amber-950 text-white text-xs px-1.5 py-0.5 rounded-full">
                   {totalItems}
                 </span>
               )}
@@ -139,7 +139,7 @@ export default function Navbar() {
                     `px-4 py-2 rounded-full text-sm font-medium transition ${
                       isActive
                         ? "bg-green-600 text-white"
-                        : "bg-green-300 text-black hover:bg-green-400"
+                        : "bg-green-500 text-black hover:bg-green-600"
                     }`
                   }
                 >
@@ -152,7 +152,7 @@ export default function Navbar() {
                     `px-4 py-2 rounded-full text-sm font-medium transition ${
                       isActive
                         ? "bg-green-800 text-white"
-                        : "bg-green-600 text-white hover:bg-green-700"
+                        : "bg-green-700 text-white hover:bg-green-800"
                     }`
                   }
                 >

@@ -74,7 +74,7 @@ export default function OrderSuccess() {
           <div className="bg-white rounded-2xl border shadow-sm p-6 sm:p-8 mb-8">
 
             <div className="flex items-center gap-2 mb-6">
-              <FaMapMarkerAlt className="text-blue-600" />
+              <FaMapMarkerAlt className="text-green-700" />
               <h3 className="font-semibold text-lg">
                 Delivery Address
               </h3>
@@ -227,7 +227,7 @@ export default function OrderSuccess() {
 
           <div className="flex justify-between font-bold text-lg">
             <span>Total Paid</span>
-            <span className="text-blue-600">
+            <span className="text-blue-800">
               {formatPrice(total)}
             </span>
           </div>

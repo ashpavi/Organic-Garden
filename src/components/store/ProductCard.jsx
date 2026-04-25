@@ -67,7 +67,7 @@ export default function ProductCard({ product }) {
           to={productPath}
           className="
             text-sm font-semibold text-gray-800
-            hover:text-blue-600 transition
+            hover:text-green-600 transition
             line-clamp-2 min-h-[40px]
           "
         >
@@ -102,8 +102,8 @@ export default function ProductCard({ product }) {
               transition-all duration-200
               ${
                 added
-                  ? "bg-green-600 text-white"
-                  : "bg-blue-600 text-white hover:bg-blue-700"
+                  ? "bg-green-400 text-white"
+                  : "bg-green-700 text-white hover:bg-green-800"
               }
             `}
           >
