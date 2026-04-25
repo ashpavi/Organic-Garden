@@ -7,8 +7,6 @@ import { useAuth } from "../../../hooks/useAuth";
 export default function MyOrdersPage() {
 
   const { currentUser } = useAuth();
-
-  // 🔥 Only fetch logged-in user's orders
   const { orders, loading } = useOrders(currentUser?.uid);
 
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -21,25 +19,35 @@ export default function MyOrdersPage() {
 
   return (
 
-    <div>
+    <div className="space-y-6">
 
-      <h2 className="text-2xl font-semibold mb-6">
-        My Orders
-      </h2>
-
-      {orders.length === 0 && (
-        <p className="text-gray-500">
-          You haven't placed any orders yet.
+      {/* HEADER */}
+      <div>
+        <h2 className="text-2xl font-semibold text-green-800">
+          My Orders
+        </h2>
+        <p className="text-gray-500 text-sm">
+          Track your purchases and order status
         </p>
+      </div>
+
+      {/* EMPTY STATE */}
+      {orders.length === 0 && (
+        <div className="bg-green-50 border border-green-100 rounded-xl p-6 text-center">
+          <p className="text-gray-600">
+            You haven't placed any orders yet.
+          </p>
+        </div>
       )}
 
+      {/* ORDERS LIST */}
       <div className="space-y-4">
 
         {orders.map((order) => (
 
           <div
             key={order.id}
-            className="border rounded-xl p-5 flex justify-between items-center hover:shadow-sm transition"
+            className="bg-white/90 backdrop-blur border border-green-100 rounded-xl p-5 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 hover:shadow-md hover:bg-green-50 transition"
           >
 
             {/* ORDER INFO */}
@@ -48,28 +56,28 @@ export default function MyOrdersPage() {
                 {order.createdAt?.toDate?.().toLocaleDateString() || "—"}
               </p>
 
-              <p className="font-semibold">
+              <p className="font-semibold text-gray-800">
                 #{order.id}
               </p>
 
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-green-700 font-medium">
                 {formatPrice(order.total)}
               </p>
             </div>
 
             {/* STATUS + ACTION */}
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4 sm:gap-6">
 
               <span
                 className={`px-4 py-1 rounded-full text-sm font-medium
                 ${
                   order.status === "Delivered"
-                    ? "bg-green-100 text-green-600"
+                    ? "bg-green-100 text-green-700"
                     : order.status === "Shipped"
-                    ? "bg-blue-100 text-blue-600"
+                    ? "bg-emerald-100 text-emerald-700"
                     : order.status === "Cancelled"
                     ? "bg-red-100 text-red-600"
-                    : "bg-yellow-100 text-yellow-600"
+                    : "bg-amber-100 text-amber-700"
                 }`}
               >
                 {order.status || "Processing"}
@@ -77,7 +85,7 @@ export default function MyOrdersPage() {
 
               <button
                 onClick={() => setSelectedOrder(order)}
-                className="text-blue-600 hover:underline text-sm"
+                className="text-green-700 hover:text-green-800 hover:underline text-sm font-medium"
               >
                 View Details
               </button>

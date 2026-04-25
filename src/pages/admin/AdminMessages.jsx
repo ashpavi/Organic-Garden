@@ -55,8 +55,8 @@ export default function AdminMessages() {
                         key={topic}
                         className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
                             activeTopic === topic
-                                ? "border-blue-600 bg-blue-50 text-blue-600"
-                                : "border-gray-200 bg-white text-gray-600 hover:border-blue-300 hover:text-blue-600"
+                                ? "border-green-600 bg-green-100 text-green-600"
+                                : "border-gray-200 bg-white text-gray-600 hover:border-green-300 hover:text-green-600"
                         }`}
                         onClick={() => setActiveTopic(topic)}
                     >

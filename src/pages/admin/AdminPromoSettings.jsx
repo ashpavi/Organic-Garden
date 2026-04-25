@@ -167,7 +167,7 @@ export default function AdminPromoSettings() {
           <button
             onClick={handleSave}
             disabled={saving}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-xl font-semibold transition disabled:opacity-70"
+            className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-xl font-semibold transition disabled:opacity-70"
           >
             {saving ? "Saving..." : "Save Changes"}
           </button>

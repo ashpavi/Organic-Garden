@@ -339,7 +339,7 @@ export default function AdminHeroSettings() {
         type="button"
         onClick={handleSave}
         disabled={saving}
-        className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70"
+        className="rounded-xl bg-green-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-70"
       >
         {saving ? "Saving..." : "Save Hero Settings"}
       </button>

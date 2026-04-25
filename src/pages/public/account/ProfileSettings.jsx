@@ -12,7 +12,6 @@ import {
 import { doc, updateDoc } from "firebase/firestore";
 import { useAuth } from "../../../hooks/useAuth";
 
-
 export default function ProfileSettings() {
 
   const { currentUser } = useAuth();
@@ -28,7 +27,6 @@ export default function ProfileSettings() {
 
   const [loading, setLoading] = useState(false);
 
-  /* ================= AUTOFILL ================= */
   useEffect(() => {
     if (currentUser) {
       setName(currentUser.name || "");
@@ -36,9 +34,6 @@ export default function ProfileSettings() {
     }
   }, [currentUser]);
 
-
-
-  /* ================= SAVE CHANGES ================= */
   const handleSave = async (e) => {
     e.preventDefault();
 
@@ -47,9 +42,7 @@ export default function ProfileSettings() {
 
       const user = auth.currentUser;
 
-      /* ================= UPDATE NAME ================= */
       if (name !== currentUser.name) {
-
         await updateDoc(doc(db, "users", user.uid), {
           name: name
         });
@@ -59,8 +52,6 @@ export default function ProfileSettings() {
         });
       }
 
-
-      /* ================= UPDATE PASSWORD ================= */
       if (oldPassword && newPassword) {
 
         const credential = EmailAuthProvider.credential(
@@ -69,7 +60,6 @@ export default function ProfileSettings() {
         );
 
         await reauthenticateWithCredential(user, credential);
-
         await updatePassword(user, newPassword);
       }
 
@@ -85,21 +75,18 @@ export default function ProfileSettings() {
     setLoading(false);
   };
 
-
-
   return (
     <div className="max-w-xl space-y-8">
 
       {/* HEADER */}
       <div>
-        <h2 className="text-2xl font-semibold text-gray-900">
-          Profile Settings
+        <h2 className="text-2xl font-semibold text-green-800">
+          Profile Settings 
         </h2>
         <p className="text-gray-500 text-sm mt-1">
           Manage your personal information and password.
         </p>
       </div>
-
 
       <form onSubmit={handleSave} className="space-y-6">
 
@@ -112,10 +99,9 @@ export default function ProfileSettings() {
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full bg-gray-100 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full bg-green-50 border border-green-100 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-400"
           />
         </div>
-
 
         {/* EMAIL */}
         <div>
@@ -130,7 +116,6 @@ export default function ProfileSettings() {
           />
         </div>
 
-
         {/* OLD PASSWORD */}
         <div>
           <label className="block text-sm mb-2 text-gray-600">
@@ -144,7 +129,7 @@ export default function ProfileSettings() {
               value={oldPassword}
               onChange={(e) => setOldPassword(e.target.value)}
               placeholder="Enter old password"
-              className="w-full bg-gray-100 rounded-lg px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-green-50 border border-green-100 rounded-lg px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-green-400"
             />
 
             <button
@@ -157,7 +142,6 @@ export default function ProfileSettings() {
 
           </div>
         </div>
-
 
         {/* NEW PASSWORD */}
         <div>
@@ -172,7 +156,7 @@ export default function ProfileSettings() {
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               placeholder="Enter new password"
-              className="w-full bg-gray-100 rounded-lg px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-green-50 border border-green-100 rounded-lg px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-green-400"
             />
 
             <button
@@ -186,12 +170,11 @@ export default function ProfileSettings() {
           </div>
         </div>
 
-
         {/* SAVE BUTTON */}
         <button
           type="submit"
           disabled={loading}
-          className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+          className="bg-green-700 text-white px-6 py-3 rounded-lg hover:bg-green-800 transition disabled:opacity-50"
         >
           {loading ? "Saving..." : "Save Changes"}
         </button>

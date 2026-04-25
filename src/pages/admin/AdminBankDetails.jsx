@@ -57,7 +57,7 @@ export default function AdminBankDetails() {
 
       {/* HEADER */}
       <div className="flex items-center gap-3 mb-6">
-        <FaUniversity className="text-blue-600 text-2xl" />
+        <FaUniversity className="text-green-600 text-2xl" />
         <h1 className="text-2xl sm:text-3xl font-bold">
           Bank Details
         </h1>
@@ -103,7 +103,7 @@ export default function AdminBankDetails() {
 
             <button
               onClick={() => setIsEditing(true)}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-green-600 text-white hover:bg-green-700 transition"
             >
               <FaEdit />
               Edit Details

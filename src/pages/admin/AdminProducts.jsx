@@ -144,7 +144,7 @@ export default function AdminProducts() {
 
           <Link
             to="/admin/products/add"
-            className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700"
+            className="flex items-center gap-2 bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700"
           >
             <FaPlus size={14} />
             Add Product

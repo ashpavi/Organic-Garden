@@ -28,7 +28,6 @@ export default function Overview() {
   const [activityLogs, setActivityLogs] = useState([]);
   const [currentTime, setCurrentTime] = useState(new Date());
 
-  /* ================= LIVE TIME ================= */
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
@@ -45,31 +44,17 @@ export default function Overview() {
 
   const formattedTime = currentTime.toLocaleTimeString();
 
-  /* ================= FORMAT DATE ================= */
   const formatDateTime = (timestamp) => {
     if (!timestamp?.toDate) return "—";
-
-    const date = timestamp.toDate();
-
-    return date.toLocaleString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+    return timestamp.toDate().toLocaleString("en-GB");
   };
 
   const timeAgo = (timestamp) => {
     if (!timestamp?.toDate) return "";
-
-    const now = new Date();
-    const diff = Math.floor((now - timestamp.toDate()) / 1000);
-
+    const diff = Math.floor((new Date() - timestamp.toDate()) / 1000);
     if (diff < 60) return "Just now";
     if (diff < 3600) return `${Math.floor(diff / 60)} min ago`;
     if (diff < 86400) return `${Math.floor(diff / 3600)} hr ago`;
-
     return `${Math.floor(diff / 86400)} days ago`;
   };
 
@@ -82,9 +67,7 @@ export default function Overview() {
     }
   };
 
-  /* ================= FETCH DATA ================= */
   useEffect(() => {
-
     const fetchData = async () => {
 
       const usersSnap = await getDocs(collection(db, "users"));
@@ -107,15 +90,7 @@ export default function Overview() {
         revenue: totalRevenue
       });
 
-      const sortedAdmins = admins.sort(
-        (a, b) =>
-          new Date(b.createdAt?.seconds * 1000) -
-          new Date(a.createdAt?.seconds * 1000)
-      );
-
-      setRecentAdmins(sortedAdmins.slice(0, 5));
-
-      /* ===== FETCH ACTIVITY LOGS ===== */
+      setRecentAdmins(admins.slice(0, 5));
 
       const logsQuery = query(
         collection(db, "superAdminLogs"),
@@ -124,83 +99,50 @@ export default function Overview() {
       );
 
       const logsSnap = await getDocs(logsQuery);
-
-      const logs = logsSnap.docs.map(doc => doc.data());
-
-      setActivityLogs(logs);
-
+      setActivityLogs(logsSnap.docs.map(doc => doc.data()));
     };
 
     fetchData();
-
   }, []);
 
   return (
     <div className="space-y-10">
 
-      {/* ================= HEADER ================= */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-2xl">
+      {/* HEADER */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-gradient-to-r from-green-50 to-emerald-100 p-6 rounded-2xl border border-green-100">
 
         <div>
           <h1 className="text-3xl font-semibold text-gray-900">
-            Super Admin Dashboard
+            Super Admin Dashboard 🌿
           </h1>
 
-          <p className="text-gray-500 text-sm mt-1">
+          <p className="text-gray-600 text-sm mt-1">
             Monitor your platform activity
           </p>
         </div>
 
-        <div className="bg-white border rounded-xl px-4 py-3 shadow-sm text-right">
-          <p className="text-sm text-gray-500">
-            {formattedDate}
-          </p>
-
-          <p className="text-lg font-semibold text-gray-900">
-            {formattedTime}
-          </p>
+        <div className="bg-white border border-green-100 rounded-xl px-4 py-3 shadow-sm text-right">
+          <p className="text-sm text-gray-500">{formattedDate}</p>
+          <p className="text-lg font-semibold text-gray-900">{formattedTime}</p>
         </div>
 
       </div>
 
-      {/* ================= STATS ================= */}
+      {/* STATS */}
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 
-        <StatCard
-          icon={<FaDollarSign className="text-green-600" />}
-          title="Revenue"
-          value={`LKR ${stats.revenue.toLocaleString()}`}
-          color="bg-green-100"
-        />
-
-        <StatCard
-          icon={<FaUsers className="text-blue-600" />}
-          title="Users"
-          value={stats.users}
-          color="bg-blue-100"
-        />
-
-        <StatCard
-          icon={<FaUserShield className="text-purple-600" />}
-          title="Admins"
-          value={stats.admins}
-          color="bg-purple-100"
-        />
-
-        <StatCard
-          icon={<FaShoppingCart className="text-orange-500" />}
-          title="Orders"
-          value={stats.orders}
-          color="bg-orange-100"
-        />
+        <StatCard icon={<FaDollarSign />} title="Revenue" value={`LKR ${stats.revenue.toLocaleString()}`} />
+        <StatCard icon={<FaUsers />} title="Users" value={stats.users} />
+        <StatCard icon={<FaUserShield />} title="Admins" value={stats.admins} />
+        <StatCard icon={<FaShoppingCart />} title="Orders" value={stats.orders} />
 
       </div>
 
-      {/* ================= CONTENT ================= */}
+      {/* CONTENT */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
-        {/* ================= RECENT ADMINS ================= */}
-        <div className="bg-white p-6 rounded-2xl shadow-md">
+        {/* ADMINS */}
+        <div className="bg-white rounded-2xl shadow-md p-6 border border-green-100">
 
           <div className="flex justify-between items-center mb-5">
             <h2 className="font-semibold text-gray-800">
@@ -209,42 +151,36 @@ export default function Overview() {
 
             <Link
               to="/superadmin/manageAdmins"
-              className="text-sm text-blue-600 hover:underline"
+              className="text-sm text-green-600 hover:underline"
             >
               View All
             </Link>
           </div>
 
           {recentAdmins.length === 0 ? (
-            <p className="text-gray-500 text-sm">
-              No admins found
-            </p>
+            <p className="text-gray-500 text-sm">No admins found</p>
           ) : (
             recentAdmins.map((admin, index) => (
-
               <div
                 key={index}
                 className="flex justify-between items-center py-3 border-b last:border-none"
               >
-
                 <div>
                   <p className="font-medium">{admin.name}</p>
                   <p className="text-sm text-gray-500">{admin.email}</p>
                 </div>
 
-                <span className="text-xs bg-gray-100 px-3 py-1 rounded-full">
+                <span className="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full">
                   {formatDateTime(admin.createdAt)}
                 </span>
-
               </div>
-
             ))
           )}
 
         </div>
 
-        {/* ================= ACTIVITY LOG ================= */}
-        <div className="bg-white p-6 rounded-2xl shadow-md">
+        {/* LOGS */}
+        <div className="bg-white rounded-2xl shadow-md p-6 border border-green-100">
 
           <h2 className="font-semibold text-gray-800 mb-5">
             Activity Logs
@@ -253,17 +189,13 @@ export default function Overview() {
           <div className="space-y-3 text-sm max-h-72 overflow-y-auto pr-2">
 
             {activityLogs.length === 0 ? (
-              <p className="text-gray-500">
-                No activity yet
-              </p>
+              <p className="text-gray-500">No activity yet</p>
             ) : (
               activityLogs.map((log, index) => (
-
                 <div
                   key={index}
-                  className="flex justify-between items-center bg-gray-50 px-4 py-3 rounded-lg"
+                  className="flex justify-between items-center bg-green-50 px-4 py-3 rounded-lg"
                 >
-
                   <p className="text-gray-700">
                     {getActionIcon(log.action)}{" "}
                     <span className="font-medium">{log.name}</span>{" "}
@@ -278,9 +210,7 @@ export default function Overview() {
                       {timeAgo(log.createdAt)}
                     </p>
                   </div>
-
                 </div>
-
               ))
             )}
 
@@ -294,21 +224,19 @@ export default function Overview() {
   );
 }
 
-/* ================= STAT CARD ================= */
+/* STAT CARD */
 
-function StatCard({ icon, title, value, color }) {
+function StatCard({ icon, title, value }) {
   return (
-    <div className="bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition">
+    <div className="bg-white/90 backdrop-blur rounded-xl p-4 shadow-sm hover:shadow-lg transition border border-green-100">
 
       <div className="flex items-center justify-between mb-3">
-        <div className={`p-3 rounded-lg ${color}`}>
+        <div className="bg-green-100 text-green-700 p-3 rounded-lg">
           {icon}
         </div>
       </div>
 
-      <p className="text-sm text-gray-500">
-        {title}
-      </p>
+      <p className="text-sm text-gray-500">{title}</p>
 
       <p className="text-2xl font-semibold text-gray-900 mt-1">
         {value}

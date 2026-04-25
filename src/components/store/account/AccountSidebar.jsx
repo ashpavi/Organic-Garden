@@ -8,18 +8,17 @@ import {
 } from "react-icons/fa";
 import { useAuth } from "../../../hooks/useAuth";
 
-
 export default function AccountSidebar({ isOpen, setIsOpen }) {
   const navigate = useNavigate();
   const { logoutUser } = useAuth();
 
   const linkStyle =
-    "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all";
+    "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200";
 
   const handleLogout = async () => {
     try {
-      await logoutUser(); 
-      navigate("/login"); 
+      await logoutUser();
+      navigate("/login");
     } catch (error) {
       console.error("Logout failed:", error);
     }
@@ -38,25 +37,26 @@ export default function AccountSidebar({ isOpen, setIsOpen }) {
       {/* Sidebar */}
       <div
         className={`fixed lg:relative top-0 lg:top-auto left-0 
-                    h-full lg:h-auto 
-                    w-72 
-                    bg-white shadow-sm 
-                    rounded-2xl 
-                    transform transition-transform duration-300
-                    z-50
-                    ${
-                      isOpen
-                        ? "translate-x-0"
-                        : "-translate-x-full lg:translate-x-0"
-                    }`}
+        h-full lg:h-auto 
+        w-72 
+        bg-white/90 backdrop-blur shadow-sm 
+        border border-green-100
+        rounded-2xl 
+        transform transition-transform duration-300
+        z-50
+        ${
+          isOpen
+            ? "translate-x-0"
+            : "-translate-x-full lg:translate-x-0"
+        }`}
       >
         <div className="flex flex-col h-full p-6">
 
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h2 className="text-base font-semibold text-gray-900">
-                My Account
+              <h2 className="text-base font-semibold text-green-800">
+                My Account 
               </h2>
               <p className="text-xs text-gray-500">
                 Manage your profile
@@ -64,7 +64,7 @@ export default function AccountSidebar({ isOpen, setIsOpen }) {
             </div>
 
             <button
-              className="lg:hidden"
+              className="lg:hidden text-gray-500"
               onClick={() => setIsOpen(false)}
             >
               <FaTimes />
@@ -81,8 +81,8 @@ export default function AccountSidebar({ isOpen, setIsOpen }) {
               className={({ isActive }) =>
                 `${linkStyle} ${
                   isActive
-                    ? "bg-blue-50 text-blue-600"
-                    : "text-gray-700 hover:bg-gray-100"
+                    ? "bg-green-100 text-green-700"
+                    : "text-gray-700 hover:bg-green-50 hover:text-green-700"
                 }`
               }
             >
@@ -96,8 +96,8 @@ export default function AccountSidebar({ isOpen, setIsOpen }) {
               className={({ isActive }) =>
                 `${linkStyle} ${
                   isActive
-                    ? "bg-blue-50 text-blue-600"
-                    : "text-gray-700 hover:bg-gray-100"
+                    ? "bg-green-100 text-green-700"
+                    : "text-gray-700 hover:bg-green-50 hover:text-green-700"
                 }`
               }
             >
@@ -111,8 +111,8 @@ export default function AccountSidebar({ isOpen, setIsOpen }) {
               className={({ isActive }) =>
                 `${linkStyle} ${
                   isActive
-                    ? "bg-blue-50 text-blue-600"
-                    : "text-gray-700 hover:bg-gray-100"
+                    ? "bg-green-100 text-green-700"
+                    : "text-gray-700 hover:bg-green-50 hover:text-green-700"
                 }`
               }
             >
@@ -126,8 +126,8 @@ export default function AccountSidebar({ isOpen, setIsOpen }) {
           <button
             onClick={handleLogout}
             className="mt-auto flex items-center gap-3 px-4 py-3 
-                       rounded-xl text-sm font-medium text-red-500 
-                       hover:bg-red-50 transition"
+            rounded-xl text-sm font-medium text-red-500 
+            hover:bg-red-50 transition"
           >
             <FaSignOutAlt size={14} />
             Logout

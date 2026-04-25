@@ -100,7 +100,7 @@ export default function AdminCategory() {
 
         <Link
           to="/admin/categories/add"
-          className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700"
+          className="flex items-center gap-2 bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700"
         >
           <FaPlus size={14} />
           Add Category
@@ -261,7 +261,7 @@ export default function AdminCategory() {
 
               <button
                 onClick={handleSaveEdit}
-                className="bg-blue-600 text-white px-4 py-2 rounded"
+                className="bg-green-600 text-white px-4 py-2 rounded"
               >
                 Save Changes
               </button>

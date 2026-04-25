@@ -285,7 +285,7 @@ export default function AddProducts() {
             <button
               type="submit"
               disabled={loading}
-              className="px-6 py-2 bg-blue-600 text-white rounded-lg"
+              className="px-6 py-2 bg-green-600 text-white rounded-lg"
             >
               {loading ? "Saving..." : "Save Product"}
             </button>

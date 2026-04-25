@@ -10,13 +10,10 @@ import { useOrders } from "../../../hooks/useOrders";
 export default function Dashboard() {
 
   const { currentUser } = useAuth();
-
-  // 🔥 Correct: only fetch current user's orders
   const { orders, loading } = useOrders(currentUser?.uid);
 
   const firstName = currentUser?.name?.split(" ")[0] || "User";
 
-  /* ================= LOADING STATE ================= */
   if (loading) {
     return (
       <div className="p-6 text-center text-gray-500">
@@ -24,8 +21,6 @@ export default function Dashboard() {
       </div>
     );
   }
-
-  /* ================= ORDER STATS ================= */
 
   const totalOrders = orders.length;
 
@@ -43,10 +38,10 @@ export default function Dashboard() {
 
     <div className="space-y-10">
 
-      {/* ================= HEADER ================= */}
+      {/* HEADER */}
       <div className="space-y-3">
         <h2 className="text-3xl font-semibold text-gray-900">
-          Welcome, <span className="text-blue-600">{firstName}</span> 👋
+          Welcome, <span className="text-green-700">{firstName}</span>🌿
         </h2>
 
         <p className="text-gray-500 text-sm">
@@ -54,41 +49,41 @@ export default function Dashboard() {
         </p>
       </div>
 
-      {/* ================= STATS ================= */}
+      {/* STATS */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
         {/* TOTAL */}
-        <div className="group bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition">
+        <div className="group bg-white/90 backdrop-blur p-6 rounded-2xl shadow-md border border-green-100 hover:shadow-lg transition">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500">Total Orders</p>
-              <p className="text-3xl font-bold text-blue-600 mt-2">
+              <p className="text-3xl font-bold text-green-700 mt-2">
                 {totalOrders}
               </p>
             </div>
-            <div className="bg-blue-100 p-4 rounded-full">
-              <FaShoppingBag className="text-blue-600" size={18} />
+            <div className="bg-green-100 p-4 rounded-full">
+              <FaShoppingBag className="text-green-700" size={18} />
             </div>
           </div>
         </div>
 
         {/* PROCESSING */}
-        <div className="group bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition">
+        <div className="group bg-white/90 backdrop-blur p-6 rounded-2xl shadow-md border border-green-100 hover:shadow-lg transition">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500">Processing</p>
-              <p className="text-3xl font-bold text-yellow-500 mt-2">
+              <p className="text-3xl font-bold text-amber-600 mt-2">
                 {processingOrders}
               </p>
             </div>
-            <div className="bg-yellow-100 p-4 rounded-full">
-              <FaTruck className="text-yellow-500" size={18} />
+            <div className="bg-amber-100 p-4 rounded-full">
+              <FaTruck className="text-amber-600" size={18} />
             </div>
           </div>
         </div>
 
         {/* COMPLETED */}
-        <div className="group bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition">
+        <div className="group bg-white/90 backdrop-blur p-6 rounded-2xl shadow-md border border-green-100 hover:shadow-lg transition">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500">Completed</p>
@@ -104,8 +99,8 @@ export default function Dashboard() {
 
       </div>
 
-      {/* ================= RECENT ORDERS ================= */}
-      <div className="bg-white rounded-2xl shadow-md p-6">
+      {/* RECENT ORDERS */}
+      <div className="bg-white rounded-2xl shadow-md p-6 border border-green-100">
 
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-3">
           <h3 className="font-semibold text-lg text-gray-800">
@@ -114,7 +109,7 @@ export default function Dashboard() {
 
           <Link
             to="/account/orders"
-            className="text-sm text-blue-600 hover:text-blue-700"
+            className="text-sm text-green-600 hover:text-green-700"
           >
             View All
           </Link>
@@ -131,7 +126,7 @@ export default function Dashboard() {
 
               <div
                 key={order.id}
-                className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 rounded-xl hover:bg-gray-50 transition"
+                className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 rounded-xl hover:bg-green-50 transition"
               >
 
                 <div>
@@ -150,8 +145,8 @@ export default function Dashboard() {
                     order.status === "Delivered"
                       ? "bg-green-100 text-green-700"
                       : order.status === "Shipped"
-                      ? "bg-blue-100 text-blue-700"
-                      : "bg-yellow-100 text-yellow-700"
+                      ? "bg-emerald-100 text-emerald-700"
+                      : "bg-amber-100 text-amber-700"
                   }`}
                 >
                   {order.status}

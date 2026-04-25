@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   FaTachometerAlt,
   FaUserShield,
@@ -9,9 +9,11 @@ import {
 import logo from "../../assets/logo.png";
 import { useAuth } from "../../hooks/useAuth";
 
-export default function SuperAdminSidebar({isOpen, setIsOpen}) {
+export default function SuperAdminSidebar({ isOpen, setIsOpen }) {
+
   const { logoutUser } = useAuth();
-  
+  const navigate = useNavigate(); // ✅ FIXED
+
   const linkStyle =
     "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200";
 
@@ -26,7 +28,7 @@ export default function SuperAdminSidebar({isOpen, setIsOpen}) {
 
   return (
     <>
-      {/* ================= MOBILE OVERLAY ================= */}
+      {/* OVERLAY */}
       <div
         className={`fixed inset-0 bg-black/30 backdrop-blur-sm z-40 lg:hidden transition ${
           isOpen ? "opacity-100 visible" : "opacity-0 invisible"
@@ -34,10 +36,11 @@ export default function SuperAdminSidebar({isOpen, setIsOpen}) {
         onClick={() => setIsOpen(false)}
       />
 
-      {/* ================= SIDEBAR ================= */}
+      {/* SIDEBAR */}
       <div
         className={`fixed lg:static top-0 left-0 h-screen w-64 
-        bg-gray-900 text-white shadow-xl z-50 
+        bg-gradient-to-b from-green-950 via-green-900 to-green-800 
+        text-white shadow-xl z-50 
         transform transition-transform duration-300
         ${
           isOpen
@@ -46,34 +49,36 @@ export default function SuperAdminSidebar({isOpen, setIsOpen}) {
         }`}
       >
         <div className="flex flex-col h-full px-6 py-6">
-          
-          {/* ================= HEADER ================= */}
+
+          {/* HEADER */}
           <div className="flex items-center justify-between lg:justify-start mb-10">
             <div className="flex items-center gap-3">
+
               <img
                 src={logo}
-                alt="LuxeStore Logo"
-                className="w-16 h-16 object-contain rounded-full p-1 shadow-sm"
+                alt="Organic Garden Logo"
+                className="w-16 h-16 object-contain rounded-full bg-white p-1 shadow"
               />
 
               <div>
-                <h2 className="text-base font-semibold text-white">
-                  Super Admin
+                <h2 className="text-base font-semibold text-green-100">
+                  Super Admin 
                 </h2>
               </div>
+
             </div>
 
-            {/* CLOSE BTN (MOBILE) */}
             <button
-              className="lg:hidden text-gray-400"
+              className="lg:hidden text-green-200"
               onClick={() => setIsOpen(false)}
             >
               <FaTimes />
             </button>
           </div>
 
-          {/* ================= NAVIGATION ================= */}
+          {/* NAVIGATION */}
           <nav className="space-y-2 flex-1">
+
             <NavLink
               to="/superadmin"
               end
@@ -81,8 +86,8 @@ export default function SuperAdminSidebar({isOpen, setIsOpen}) {
               className={({ isActive }) =>
                 `${linkStyle} ${
                   isActive
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-300 hover:bg-gray-800"
+                    ? "bg-green-600 text-white shadow-md"
+                    : "text-green-200 hover:bg-green-700/40 hover:text-white"
                 }`
               }
             >
@@ -96,26 +101,28 @@ export default function SuperAdminSidebar({isOpen, setIsOpen}) {
               className={({ isActive }) =>
                 `${linkStyle} ${
                   isActive
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-300 hover:bg-gray-800"
+                    ? "bg-green-600 text-white shadow-md"
+                    : "text-green-200 hover:bg-green-700/40 hover:text-white"
                 }`
               }
             >
               <FaUserShield size={14} />
               Manage Admins
             </NavLink>
+
           </nav>
 
-          {/* ================= LOGOUT ================= */}
+          {/* LOGOUT */}
           <button
             onClick={handleLogout}
             className="mt-auto flex items-center gap-3 px-4 py-3 
-            rounded-xl text-sm font-medium text-red-400 
-            hover:bg-red-500/10 transition cursor-pointer"
+            rounded-xl text-sm font-medium text-red-300 
+            hover:bg-red-500/10 hover:text-red-200 transition cursor-pointer"
           >
             <FaSignOutAlt size={14} />
             Logout
           </button>
+
         </div>
       </div>
     </>

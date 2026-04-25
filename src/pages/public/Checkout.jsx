@@ -322,7 +322,7 @@ export default function Checkout() {
               onClick={handlePlaceOrder}
               disabled={loading}
               className={`w-full py-3 rounded-xl text-white ${
-                loading ? "bg-gray-400" : "bg-amber-900 hover:bg-amber-950"
+                loading ? "bg-gray-400" : "bg-amber-950 hover:bg-[#2a1400]"
               }`}
             >
               {loading ? "Placing..." : "Place Order"}

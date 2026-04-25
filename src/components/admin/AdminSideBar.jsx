@@ -20,10 +20,9 @@ export default function AdminSideBar({ isOpen, setIsOpen }) {
   const navigate = useNavigate();
   const { logoutUser } = useAuth();
 
-  const linkStyle = 
+  const linkStyle =
     "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200";
 
-  /* ================= LOGOUT ================= */
   const handleLogout = async () => {
     try {
       await logoutUser();
@@ -35,7 +34,7 @@ export default function AdminSideBar({ isOpen, setIsOpen }) {
 
   return (
     <>
-      {/* ================= MOBILE OVERLAY ================= */}
+      {/* OVERLAY */}
       <div
         className={`fixed inset-0 bg-black/30 backdrop-blur-sm z-40 lg:hidden transition ${
           isOpen ? "opacity-100 visible" : "opacity-0 invisible"
@@ -43,40 +42,41 @@ export default function AdminSideBar({ isOpen, setIsOpen }) {
         onClick={() => setIsOpen(false)}
       />
 
-      {/* ================= SIDEBAR ================= */}
+      {/* SIDEBAR */}
       <div
         className={`fixed lg:static top-0 left-0 h-screen w-64 
-                    bg-gray-900 text-white shadow-xl z-50 
-                    transform transition-transform duration-300
-                    ${
-                      isOpen
-                        ? "translate-x-0"
-                        : "-translate-x-full lg:translate-x-0"
-                    }`}
+        bg-gradient-to-b from-green-950 via-green-900 to-green-800 
+        text-white shadow-xl z-50 
+        transform transition-transform duration-300
+        ${
+          isOpen
+            ? "translate-x-0"
+            : "-translate-x-full lg:translate-x-0"
+        }`}
       >
         <div className="flex flex-col h-full px-6 py-6">
 
-          {/* ================= BRAND ================= */}
+          {/* BRAND */}
           <div className="flex items-center justify-between lg:justify-start mb-10">
 
             <div className="flex items-center gap-3">
 
               <img
                 src={logo}
-                alt="LuxeStore Logo"
-                className="w-18 h-18 object-contain rounded-full  p-1 shadow-sm"
+                alt="Organic Garden Logo"
+                className="w-16 h-16 object-contain rounded-full p-1 bg-white shadow"
               />
 
               <div>
-                <h2 className="text-base font-semibold text-white">
-                  Admin Panel
+                <h2 className="text-base font-semibold text-green-100">
+                  Organic Admin
                 </h2>
               </div>
 
             </div>
 
             <button
-              className="lg:hidden text-gray-400"
+              className="lg:hidden text-green-200"
               onClick={() => setIsOpen(false)}
             >
               <FaTimes />
@@ -84,153 +84,45 @@ export default function AdminSideBar({ isOpen, setIsOpen }) {
 
           </div>
 
-          {/* ================= NAVIGATION ================= */}
+          {/* NAVIGATION */}
           <nav className="space-y-2 flex-1">
 
-            <NavLink
-              to="/admin/adminDashboard"
-              end
-              onClick={() => setIsOpen(false)}
-              className={({ isActive }) =>
-                `${linkStyle} ${
-                  isActive
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-300 hover:bg-gray-800"
-                }`
-              }
-            >
-              <FaTachometerAlt size={14} />
-              Dashboard
-            </NavLink>
-
-            <NavLink
-              to="/admin/products"
-              onClick={() => setIsOpen(false)}
-              className={({ isActive }) =>
-                `${linkStyle} ${
-                  isActive
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-300 hover:bg-gray-800"
-                }`
-              }
-            >
-              <FaBoxOpen size={14} />
-              Products
-            </NavLink>
-
-            <NavLink
-              to="/admin/categories"
-              onClick={() => setIsOpen(false)}
-              className={({ isActive }) =>
-                `${linkStyle} ${
-                  isActive
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-300 hover:bg-gray-800"
-                }`
-              }
-            >
-              <FaTags size={14} />
-              Categories
-            </NavLink>
-
-            <NavLink
-              to="/admin/orders"
-              onClick={() => setIsOpen(false)}
-              className={({ isActive }) =>
-                `${linkStyle} ${
-                  isActive
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-300 hover:bg-gray-800"
-                }`
-              }
-            >
-              <FaShoppingCart size={14} />
-              Orders
-            </NavLink>
-
-            <NavLink
-              to="/admin/messages"
-              onClick={() => setIsOpen(false)}
-              className={({ isActive }) =>
-                `${linkStyle} ${
-                  isActive
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-300 hover:bg-gray-800"
-                }`
-              }
-            >
-              <MdOutlineMessage size={14} />
-              Messages
-            </NavLink>
-
-            <NavLink
-              to="/admin/hero-settings"
-              onClick={() => setIsOpen(false)}
-              className={({ isActive }) =>
-                `${linkStyle} ${
-                  isActive
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-300 hover:bg-gray-800"
-                }`
-              }
-            >
-              <FaImage size={14} />
-              Hero Banner
-            </NavLink>
-
-            <NavLink
-              to="/admin/promo-settings"
-              onClick={() => setIsOpen(false)}
-              className={({ isActive }) =>
-                `${linkStyle} ${
-                  isActive
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-300 hover:bg-gray-800"
-                }`
-              }
-            >
-              <FaImage size={14} />
-              Promo Section
-            </NavLink>
-
-            <NavLink
-              to="/admin/users"
-              onClick={() => setIsOpen(false)}
-              className={({ isActive }) =>
-                `${linkStyle} ${
-                  isActive
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-300 hover:bg-gray-800"
-                }`
-              }
-            >
-              <FaUsers size={14} />
-              Users
-            </NavLink>
-
-            <NavLink
-              to="/admin/bank-details"
-              onClick={() => setIsOpen(false)}
-              className={({ isActive }) =>
-                `${linkStyle} ${
-                  isActive
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-300 hover:bg-gray-800"
-                }`
-              }
-            >
-              <FaUniversity size={14} />
-              Bank Details
-            </NavLink>
+            {[
+              { to: "/admin/adminDashboard", icon: <FaTachometerAlt size={14} />, label: "Dashboard" },
+              { to: "/admin/products", icon: <FaBoxOpen size={14} />, label: "Products" },
+              { to: "/admin/categories", icon: <FaTags size={14} />, label: "Categories" },
+              { to: "/admin/orders", icon: <FaShoppingCart size={14} />, label: "Orders" },
+              { to: "/admin/messages", icon: <MdOutlineMessage size={14} />, label: "Messages" },
+              { to: "/admin/hero-settings", icon: <FaImage size={14} />, label: "Hero Banner" },
+              { to: "/admin/promo-settings", icon: <FaImage size={14} />, label: "Promo Section" },
+              { to: "/admin/users", icon: <FaUsers size={14} />, label: "Users" },
+              { to: "/admin/bank-details", icon: <FaUniversity size={14} />, label: "Bank Details" },
+            ].map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                onClick={() => setIsOpen(false)}
+                className={({ isActive }) =>
+                  `${linkStyle} ${
+                    isActive
+                      ? "bg-green-600 text-white shadow-md"
+                      : "text-green-200 hover:bg-green-700/40 hover:text-white"
+                  }`
+                }
+              >
+                {item.icon}
+                {item.label}
+              </NavLink>
+            ))}
 
           </nav>
 
-          {/* ================= LOGOUT ================= */}
+          {/* LOGOUT */}
           <button
             onClick={handleLogout}
             className="mt-auto flex items-center gap-3 px-4 py-3 
-                       rounded-xl text-sm font-medium text-red-400 
-                       hover:bg-red-500/10 transition cursor-pointer"
+            rounded-xl text-sm font-medium text-red-300 
+            hover:bg-red-500/10 hover:text-red-200 transition cursor-pointer"
           >
             <FaSignOutAlt size={14} />
             Logout

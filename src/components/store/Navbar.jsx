@@ -50,6 +50,11 @@ export default function Navbar() {
     }
   };
 
+  const clearSearch = () => {
+    setSearchQuery("");
+    navigate("/products");
+  };
+
   const handleLogout = async () => {
     await logoutUser();
     navigate("/");
@@ -80,10 +85,7 @@ export default function Navbar() {
 
           {/* LEFT */}
           <div className="flex items-center space-x-6">
-            <button
-              className="md:hidden"
-              onClick={() => setIsOpen(true)}
-            >
+            <button className="md:hidden" onClick={() => setIsOpen(true)}>
               <FaBars size={20} />
             </button>
 
@@ -104,23 +106,29 @@ export default function Navbar() {
           </div>
 
           {/* SEARCH (Desktop) */}
-          <form
-            onSubmit={handleSearch}
-            className="hidden md:flex flex-1 mx-8"
-          >
+          <form onSubmit={handleSearch} className="hidden md:flex flex-1 mx-8 relative">
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search products..."
-              className="w-full bg-gray-100 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-600"
+              className="w-full bg-gray-100 rounded-full py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-green-600"
             />
+
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={clearSearch}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-green-600"
+              >
+                ✕
+              </button>
+            )}
           </form>
 
           {/* RIGHT */}
           <div className="flex items-center space-x-6 text-gray-700">
 
-            {/* CART */}
             <Link to="/cart" className="relative pr-1">
               <FaShoppingCart className="text-green-800 hover:text-green-600" size={18} />
               {totalItems > 0 && (
@@ -130,61 +138,32 @@ export default function Navbar() {
               )}
             </Link>
 
-            {/* NOT LOGGED IN */}
+            {/* DESKTOP AUTH */}
             {!currentUser && (
               <div className="hidden md:flex items-center space-x-4">
-                <NavLink
-                  to="/login"
-                  className={({ isActive }) =>
-                    `px-4 py-2 rounded-full text-sm font-medium transition ${
-                      isActive
-                        ? "bg-green-600 text-white"
-                        : "bg-green-500 text-black hover:bg-green-600"
-                    }`
-                  }
-                >
+                <NavLink to="/login" className="px-4 py-2 rounded-full bg-green-500 hover:bg-green-600 text-white text-sm">
                   Login
                 </NavLink>
 
-                <NavLink
-                  to="/register"
-                  className={({ isActive }) =>
-                    `px-4 py-2 rounded-full text-sm font-medium transition ${
-                      isActive
-                        ? "bg-green-800 text-white"
-                        : "bg-green-700 text-white hover:bg-green-800"
-                    }`
-                  }
-                >
+                <NavLink to="/register" className="px-4 py-2 rounded-full bg-green-700 hover:bg-green-800 text-white text-sm">
                   Register
                 </NavLink>
               </div>
             )}
 
-            {/* LOGGED IN */}
             {currentUser && (
               <div className="flex items-center space-x-4">
-
                 <button
                   onClick={handleUserClick}
-                  className="flex items-center bg-gray-100 space-x-2 hover:bg-gray-200 px-3 py-2 rounded-full transition cursor-pointer"
+                  className="flex items-center bg-gray-100 space-x-2 hover:bg-gray-200 px-3 py-2 rounded-full"
                 >
                   <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-semibold">
                     {firstName.charAt(0).toUpperCase()}
                   </div>
-
                   <span className="hidden md:block text-sm font-medium">
                     {firstName}
                   </span>
                 </button>
-
-                <button
-                  onClick={handleLogout}
-                  className="hidden md:block bg-red-500 px-4 py-2 rounded-full text-sm text-white hover:bg-red-600 transition cursor-pointer"
-                >
-                  Logout
-                </button>
-
               </div>
             )}
 
@@ -200,7 +179,7 @@ export default function Navbar() {
         />
       )}
 
-      {/* SIDE DRAWER */}
+      {/* MOBILE DRAWER */}
       <div
         className={`fixed top-0 left-0 h-full w-72 bg-white shadow-2xl z-50 transform transition-transform duration-300 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
@@ -215,63 +194,58 @@ export default function Navbar() {
             </button>
           </div>
 
-          <form onSubmit={handleSearch}>
+          {/* MOBILE SEARCH */}
+          <form onSubmit={handleSearch} className="relative">
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search products..."
-              className="w-full bg-gray-100 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full bg-gray-100 rounded-full py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-green-400"
             />
+
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={clearSearch}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-green-600"
+              >
+                ✕
+              </button>
+            )}
           </form>
 
+          {/* NAV LINKS */}
           <div className="flex flex-col space-y-4 font-medium">
             <NavLink to="/" end className={mobileNavClass} onClick={() => setIsOpen(false)}>Home</NavLink>
             <NavLink to="/products" className={mobileNavClass} onClick={() => setIsOpen(false)}>Shop</NavLink>
             <NavLink to="/aboutUs" className={mobileNavClass} onClick={() => setIsOpen(false)}>About Us</NavLink>
             <NavLink to="/contactUs" className={mobileNavClass} onClick={() => setIsOpen(false)}>Contact Us</NavLink>
-
-            {!currentUser && (
-              <div className="flex flex-col gap-3 mt-4">
-                <NavLink
-                  to="/login"
-                  onClick={() => setIsOpen(false)}
-                  className={({ isActive }) =>
-                    `text-center px-4 py-2 rounded-full text-sm font-medium transition ${
-                      isActive
-                        ? "bg-green-600 text-white"
-                        : "bg-green-300 text-black hover:bg-green-400"
-                    }`
-                  }
-                >
-                  Login
-                </NavLink>
-
-                <NavLink
-                  to="/register"
-                  onClick={() => setIsOpen(false)}
-                  className={({ isActive }) =>
-                    `text-center px-4 py-2 rounded-full text-sm font-medium transition ${
-                      isActive
-                        ? "bg-green-800 text-white"
-                        : "bg-green-600 text-white hover:bg-green-700"
-                    }`
-                  }
-                >
-                  Register
-                </NavLink>
-              </div>
-            )}
-
-            {currentUser && (
-              <button
-                onClick={handleLogout}
-                className="px-4 py-2 mt-5 rounded-full text-sm font-medium transition bg-red-500 text-white hover:bg-red-600"
-              >
-                Logout
-              </button>
-            )}
           </div>
+
+          {/* MOBILE AUTH */}
+          {!currentUser && (
+            <div className="flex flex-col gap-3 mt-4">
+              <NavLink to="/login" onClick={() => setIsOpen(false)}
+                className="text-center px-4 py-2 rounded-full bg-green-500 text-white">
+                Login
+              </NavLink>
+
+              <NavLink to="/register" onClick={() => setIsOpen(false)}
+                className="text-center px-4 py-2 rounded-full bg-green-700 text-white">
+                Register
+              </NavLink>
+            </div>
+          )}
+
+          {currentUser && (
+            <button
+              onClick={handleLogout}
+              className="w-full mt-4 px-4 py-2 rounded-full bg-red-500 text-white"
+            >
+              Logout
+            </button>
+          )}
 
         </div>
       </div>
