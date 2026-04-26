@@ -120,29 +120,41 @@ export default function HomePage() {
             Shop By Category
           </h2>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5">
             {categories.map((category) => (
               <div
-                key={category.id}
-                onClick={() =>
-                  navigate(`/products?category=${category.name}`)
-                }
-                className="relative group cursor-pointer overflow-hidden rounded-xl"
-              >
-                <img
-                  src={category.image}
-                  alt={category.name}
-                  className="w-full h-55 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
+  key={category.id}
+  onClick={() =>
+    navigate(`/products?category=${category.name}`)
+  }
+  className="relative group cursor-pointer overflow-hidden rounded-2xl"
+>
+  {/* IMAGE */}
+  <img
+    src={category.image}
+    alt={category.name}
+    className="w-full h-40 sm:h-48 md:h-52 object-cover transition-transform duration-500 group-hover:scale-105"
+  />
 
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition"></div>
+  {/* SOFT ORGANIC OVERLAY */}
+  <div className="absolute inset-0 bg-gradient-to-t from-green-900/70 via-green-800/40 to-transparent group-hover:from-green-900/80 transition"></div>
 
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <h3 className="text-white text-lg sm:text-xl font-semibold tracking-wide transform transition group-hover:scale-110">
-                    {category.name}
-                  </h3>
-                </div>
-              </div>
+  
+  {/* TEXT */}
+<div className="absolute inset-0 flex items-center justify-center text-center p-3">
+  <h3
+    className="
+      text-white text-lg sm:text-base md:text-xl font-semibold
+      leading-tight
+      line-clamp-2
+      break-words
+      drop-shadow-lg
+    "
+  >
+    {category.name}
+  </h3>
+</div>
+</div>
             ))}
           </div>
         </div>

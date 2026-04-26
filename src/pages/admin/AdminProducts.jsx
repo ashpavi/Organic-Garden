@@ -12,87 +12,67 @@ export default function AdminProducts() {
   const { categories } = useCategories();
 
   const [editingProduct, setEditingProduct] = useState(null);
-
   const [imageFiles, setImageFiles] = useState([]);
   const [previewImages, setPreviewImages] = useState([]);
-
   const [draggedIndex, setDraggedIndex] = useState(null);
-
   const [search, setSearch] = useState("");
 
+  /* CATEGORY COUNT */
   const productCounts = products.reduce((acc, product) => {
-      const category = product.category?.toLowerCase().trim();
-      acc[category] = (acc[category] || 0) + 1;
-      return acc;
-    }, {});
+    const category = product.category?.toLowerCase().trim();
+    acc[category] = (acc[category] || 0) + 1;
+    return acc;
+  }, {});
 
-  /* SEARCH FILTER */
+  /* SEARCH */
   const filteredProducts = products.filter((product) =>
     product.name?.toLowerCase().includes(search.toLowerCase())
   );
 
   /* IMAGE CHANGE */
   const handleImageChange = (e) => {
-
     const files = Array.from(e.target.files);
-
     setImageFiles(files);
-
-    const previews = files.map((file) =>
-      URL.createObjectURL(file)
-    );
-
-    setPreviewImages(previews);
+    setPreviewImages(files.map((file) => URL.createObjectURL(file)));
   };
 
-  /* SAVE EDIT */
+  /* SAVE */
   const handleSave = async () => {
-  try {
+    try {
+      let imageUrls = previewImages;
 
-    let imageUrls = previewImages;
-    if (imageFiles.length > 0) {
+      if (imageFiles.length > 0) {
+        const uploaded = await uploadProductImages(
+          imageFiles,
+          editingProduct.id
+        );
+        imageUrls = uploaded;
+      }
 
-      const uploaded = await uploadProductImages(
-        imageFiles,
-        editingProduct.id
-      );
+      const { id, ...productData } = editingProduct;
 
-      imageUrls = uploaded;
+      await editProduct(id, {
+        ...productData,
+        images: imageUrls,
+      });
+
+      setEditingProduct(null);
+      setImageFiles([]);
+      setPreviewImages([]);
+
+    } catch (error) {
+      console.error("Update failed:", error);
     }
-
-    const { id, ...productData } = editingProduct;
-
-    await editProduct(id, {
-      ...productData,
-      images: imageUrls,
-    });
-
-    setEditingProduct(null);
-    setImageFiles([]);
-    setPreviewImages([]);
-
-  } catch (error) {
-
-    console.error("Update failed:", error);
-
-  }
-};
+  };
 
   /* DELETE */
   const handleDelete = async (id) => {
-
-    const confirmDelete = window.confirm(
-      "Delete this product?"
-    );
-
-    if (!confirmDelete) return;
-
+    if (!window.confirm("Delete this product?")) return;
     await removeProduct(id);
   };
 
-  /* DRAG REORDER */
+  /* DRAG */
   const handleDrop = (index) => {
-
     const updatedPreview = [...previewImages];
     const updatedFiles = [...imageFiles];
 
@@ -109,9 +89,7 @@ export default function AdminProducts() {
     setImageFiles(updatedFiles);
   };
 
-  /* REMOVE IMAGE */
   const removeImage = (index) => {
-
     const updatedPreview = [...previewImages];
     const updatedFiles = [...imageFiles];
 
@@ -123,28 +101,28 @@ export default function AdminProducts() {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
 
       {/* HEADER */}
-      <div className="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
 
-        <h1 className="text-2xl font-bold text-gray-800">
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
           Product Management
         </h1>
 
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
 
           <input
             type="text"
             placeholder="Search products..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="border px-4 py-2 rounded-lg"
+            className="w-full sm:w-64 border px-4 py-2 rounded-lg"
           />
 
           <Link
             to="/admin/products/add"
-            className="flex items-center gap-2 bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700"
           >
             <FaPlus size={14} />
             Add Product
@@ -154,116 +132,181 @@ export default function AdminProducts() {
 
       </div>
 
-      {/* TABLE */}
-      <div className="bg-white rounded-xl shadow border overflow-x-auto">
+      {/* PRODUCTS */}
+      <div className="bg-white rounded-xl shadow border">
 
-        <table className="w-full text-left">
+        {/* DESKTOP TABLE */}
+        <div className="hidden md:block overflow-x-auto">
+          <table className="w-full text-left">
 
-          <thead className="bg-gray-50 text-sm text-gray-600 uppercase">
+            <thead className="bg-gray-50 text-sm text-gray-600 uppercase">
+              <tr>
+                <th className="p-4">Product</th>
+                <th className="p-4">Brand</th>
+                <th className="p-4">Category</th>
+                <th className="p-4">Price</th>
+                <th className="p-4">Stock</th>
+                <th className="p-4 text-center">Actions</th>
+              </tr>
+            </thead>
 
-            <tr>
-              <th className="p-4">Product</th>
-              <th className="p-4">Brand</th>
-              <th className="p-4">Category</th>
-              <th className="p-4">Price</th>
-              <th className="p-4">Stock</th>
-              <th className="p-4 text-center">Actions</th>
-            </tr>
+            <tbody>
+              {filteredProducts.map((product) => (
+                <tr key={product.id} className="border-t">
 
-          </thead>
+                  <td className="p-4 flex items-center gap-4">
+                    <img
+                      src={product.images?.[0]}
+                      className="w-14 h-14 rounded-lg object-cover border"
+                    />
+                    <span className="font-medium">{product.name}</span>
+                  </td>
 
-          <tbody>
+                  <td className="p-4">{product.brand}</td>
+                  <td className="p-4">{product.category}</td>
 
-            {filteredProducts.map((product) => (
+                  <td className="p-4 font-semibold whitespace-nowrap">
+                    {product.isOnSale && product.discountPrice ? (
+                      <>
+                        <span className="line-through text-gray-400 mr-2">
+                          LKR {product.price}
+                        </span>
+                        <span>LKR {product.discountPrice}</span>
+                      </>
+                    ) : (
+                      <span>LKR {product.price}</span>
+                    )}
+                  </td>
 
-              <tr key={product.id} className="border-t">
+                  <td className="p-4">
+                    {product.stock > 0 ? (
+                      <span className="text-green-600">
+                        {product.stock} in stock
+                      </span>
+                    ) : (
+                      <span className="text-red-500">
+                        Out of stock
+                      </span>
+                    )}
+                  </td>
 
-                <td className="p-4 flex items-center gap-4">
+                  <td className="p-4">
+                    <div className="flex justify-center gap-4">
+                      <button
+                        onClick={() => {
+                          setEditingProduct(product);
+                          setPreviewImages(product.images || []);
+                          setImageFiles([]);
+                        }}
+                        className="text-blue-600"
+                      >
+                        <FaEdit />
+                      </button>
 
-                  <img
-                    src={product.images?.[0]}
-                    alt={product.name}
-                    className="w-14 h-14 rounded-lg object-cover border"
-                  />
+                      <button
+                        onClick={() => handleDelete(product.id)}
+                        className="text-red-500"
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
+                  </td>
 
-                  <span className="font-medium">
+                </tr>
+              ))}
+            </tbody>
+
+          </table>
+        </div>
+
+        {/* MOBILE CARDS */}
+        <div className="md:hidden space-y-4 p-4">
+
+          {filteredProducts.map((product) => (
+            <div key={product.id} className="border rounded-xl p-4 shadow-sm">
+
+              <div className="flex gap-3">
+
+                <img
+                  src={product.images?.[0]}
+                  className="w-20 h-20 rounded-lg object-cover border shrink-0"
+                />
+
+                <div className="flex-1 min-w-0">
+
+                  <p className="font-semibold text-gray-900 break-words">
                     {product.name}
-                  </span>
+                  </p>
 
-                </td>
+                  <p className="text-sm text-gray-500">
+                    {product.brand}
+                  </p>
 
-                <td className="p-4">{product.brand}</td>
+                  <p className="text-xs text-gray-400 mt-1">
+                    {product.category}
+                  </p>
 
-                <td className="p-4">{product.category}</td>
-
-                <td className="p-4 font-semibold whitespace-nowrap">
-                  {product.isOnSale && product.discountPrice ? (
-                    <>
-                      <span className="line-through text-gray-400 mr-2">
+                  <div className="mt-2">
+                    {product.isOnSale && product.discountPrice ? (
+                      <div className="flex flex-col">
+                        <span className="line-through text-gray-400 text-sm">
+                          LKR {product.price}
+                        </span>
+                        <span className="font-semibold">
+                          LKR {product.discountPrice}
+                        </span>
+                      </div>
+                    ) : (
+                      <span className="font-semibold">
                         LKR {product.price}
                       </span>
-                      <span className="text-black">
-                        LKR {product.discountPrice}
-                      </span>
-                    </>
-                  ) : (
-                    <span>LKR {product.price}</span>
-                  )}
-                </td>
-
-                <td className="p-4">
-
-                  {product.stock > 0 ? (
-                    <span className="text-green-600">
-                      {product.stock} in stock
-                    </span>
-                  ) : (
-                    <span className="text-red-500">
-                      Out of stock
-                    </span>
-                  )}
-
-                </td>
-
-                <td className="p-4">
-
-                  <div className="flex justify-center gap-4">
-
-                    <button
-                      onClick={() => {
-                        setEditingProduct(product);
-                        setPreviewImages(product.images || []);
-                        setImageFiles([]);
-                      }}
-                      className="text-blue-600"
-                    >
-                      <FaEdit />
-                    </button>
-
-                    <button
-                      onClick={() => handleDelete(product.id)}
-                      className="text-red-500"
-                    >
-                      <FaTrash />
-                    </button>
-
+                    )}
                   </div>
 
-                </td>
+                  <p className={`text-sm mt-1 ${
+                    product.stock > 0 ? "text-green-600" : "text-red-500"
+                  }`}>
+                    {product.stock > 0
+                      ? `${product.stock} in stock`
+                      : "Out of stock"}
+                  </p>
 
-              </tr>
+                </div>
 
-            ))}
+              </div>
 
-          </tbody>
+              {/* ACTIONS */}
+              <div className="flex justify-end gap-4 mt-4 border-t pt-3">
 
-        </table>
+                <button
+                  onClick={() => {
+                    setEditingProduct(product);
+                    setPreviewImages(product.images || []);
+                    setImageFiles([]);
+                  }}
+                  className="flex items-center gap-1 text-blue-600 text-sm"
+                >
+                  <FaEdit /> Edit
+                </button>
+
+                <button
+                  onClick={() => handleDelete(product.id)}
+                  className="flex items-center gap-1 text-red-500 text-sm"
+                >
+                  <FaTrash /> Delete
+                </button>
+
+              </div>
+
+            </div>
+          ))}
+
+        </div>
 
       </div>
 
-      {/* EDIT MODAL */}
+      {/* EDIT MODAL (UNCHANGED) */}
       {editingProduct && (
-
         <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50 p-4">
 
           <div className="bg-white p-6 rounded-xl w-full max-w-lg overflow-y-auto max-h-[90vh]">
@@ -308,7 +351,6 @@ export default function AdminProducts() {
                 }
                 className="w-full border rounded-lg px-4 py-2"
               >
-
                 <option value="">Select Category</option>
 
                 {categories.map((cat) => (
@@ -378,11 +420,8 @@ export default function AdminProducts() {
 
               {/* IMAGE PREVIEW */}
               {previewImages.length > 0 && (
-
                 <div className="flex gap-3 flex-wrap">
-
                   {previewImages.map((img, index) => (
-
                     <div
                       key={index}
                       draggable
@@ -391,7 +430,6 @@ export default function AdminProducts() {
                       onDrop={() => handleDrop(index)}
                       className="relative cursor-move"
                     >
-
                       <img
                         src={img}
                         className="w-24 h-24 object-cover rounded-lg border"
@@ -403,20 +441,14 @@ export default function AdminProducts() {
                       >
                         ✕
                       </button>
-
                     </div>
-
                   ))}
-
                 </div>
-
               )}
 
             </div>
 
-            {/* BUTTONS */}
             <div className="flex justify-end gap-4 mt-6">
-
               <button
                 onClick={() => setEditingProduct(null)}
                 className="border px-4 py-2 rounded"
@@ -426,17 +458,15 @@ export default function AdminProducts() {
 
               <button
                 onClick={handleSave}
-                className="bg-blue-600 text-white px-4 py-2 rounded"
+                className="bg-green-600 text-white px-4 py-2 rounded"
               >
                 Save Changes
               </button>
-
             </div>
 
           </div>
 
         </div>
-
       )}
 
     </div>
