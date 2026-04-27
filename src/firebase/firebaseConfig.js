@@ -14,6 +14,26 @@ export const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const storage = getStorage(app);
+let auth = null;
+let db = null;
+let storage = null;
+
+try {
+  auth = getAuth(app);
+} catch (error) {
+  console.error("Firebase auth failed to initialize:", error);
+}
+
+try {
+  db = getFirestore(app);
+} catch (error) {
+  console.error("Firebase Firestore failed to initialize:", error);
+}
+
+try {
+  storage = getStorage(app);
+} catch (error) {
+  console.error("Firebase Storage failed to initialize:", error);
+}
+
+export { auth, db, storage };

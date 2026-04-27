@@ -10,6 +10,8 @@ export default function HomeRedirect() {
 
   useEffect(() => {
 
+    if (!auth || !db) return;
+
     const user = auth.currentUser;
 
     if (!user) return;

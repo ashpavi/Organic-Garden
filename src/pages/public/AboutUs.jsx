@@ -6,14 +6,14 @@ const aboutSectionsStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
   :root {
-    --purple: #4c1d95;
-    --purple-mid: #6d28d9;
-    --purple-light: #ede9fe;
-    --gold: #6d28d9;
-    --gold-light: #ede9fe;
-    --editorial-blue: #1f3f9a;
-    --dark: #1a0a2e;
-    --text: #2d1b69;
+    --purple: #1a5228;
+    --purple-mid: #2e8b57;
+    --purple-light: #d8f3de;
+    --gold: #2e8b57;
+    --gold-light: #e8f8ee;
+    --editorial-blue: #2e8b57;
+    --dark: #0f3d1d;
+    --text: #1f5f2f;
     --muted: #6b7280;
     --white: #ffffff;
     --off-white: #fafaf9;
@@ -33,7 +33,7 @@ const aboutSectionsStyles = `
     top: -120px; left: -120px;
     width: 400px; height: 400px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(109,40,217,0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(46,139,87,0.1) 0%, transparent 70%);
   }
 
   .values-section::after {
@@ -42,7 +42,7 @@ const aboutSectionsStyles = `
     bottom: -100px; right: -80px;
     width: 350px; height: 350px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(109,40,217,0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(46,139,87,0.1) 0%, transparent 70%);
   }
 
   .section-label {
@@ -51,7 +51,7 @@ const aboutSectionsStyles = `
     font-weight: 500;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: #4DA3FF;
+    color: #2e8b57;
     margin-bottom: 16px;
     display: block;
   }
@@ -69,7 +69,7 @@ const aboutSectionsStyles = `
     font-family: 'Playfair Display', serif;
     font-style: normal;
     font-weight: 700;
-    color: #4DA3FF;
+    color: #2e8b57;
   }
 
   .values-subtitle {
@@ -91,14 +91,14 @@ const aboutSectionsStyles = `
   .value-card {
     padding: 40px 32px;
     border: 1px solid var(--border);
-    background: #faf7ff;
+    background: #f1fbf4;
     transition: background 0.3s ease, transform 0.3s ease;
     cursor: default;
     font-family: 'Playfair Display', serif;
   }
 
   .value-card:hover {
-    background: #f3ecff;
+    background: #e8f8ee;
     transform: translateY(-4px);
   }
 
@@ -106,7 +106,7 @@ const aboutSectionsStyles = `
     width: 48px;
     height: 48px;
     border-radius: 12px;
-    background: rgba(109,40,217,0.12);
+    background: rgba(46,139,87,0.14);
     color: var(--purple-mid);
     display: flex;
     align-items: center;
@@ -137,7 +137,7 @@ const aboutSectionsStyles = `
     font-variant-numeric: oldstyle-nums proportional-nums;
     font-feature-settings: "onum" 1, "pnum" 1;
     letter-spacing: 0.5px;
-    color: rgba(109,40,217,0.42);
+    color: rgba(46,139,87,0.42);
     position: absolute;
     top: 12px;
     right: 20px;
@@ -169,7 +169,7 @@ const aboutSectionsStyles = `
     font-family: 'Playfair Display', serif;
     font-style: normal;
     font-weight: 700;
-    color: #4DA3FF;
+    color: #2e8b57;
   }
 
   .how-sub {
@@ -258,7 +258,7 @@ const aboutSectionsStyles = `
   }
 
   .step-title .accent-amp {
-    color: #4DA3FF;
+    color: #2e8b57;
   }
 
   .step-desc {
@@ -382,7 +382,7 @@ function HowItWorksSection() {
   return (
     <section className="how-section" ref={ref}>
       <div className="how-header">
-        <span className="section-label" style={{ color: "#4DA3FF" }}>The WAVO Experience</span>
+        <span className="section-label" style={{ color: "#2E8B57" }}>The WAVO Experience</span>
         <h2 className="how-title">
           Shopping made <span>effortless</span>
         </h2>
@@ -425,22 +425,20 @@ export default function AboutUs() {
     <div className="bg-white text-gray-900">
 
       {/* HERO */}
-      <section className="relative bg-[#2A0A4A] text-white px-6 py-24 text-center overflow-hidden">
+      <section className="relative text-white px-6 py-24 text-center overflow-hidden">
 
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
           <AboutHeroArtwork className="h-full w-full" />
         </div>
 
-        <div className="absolute inset-0 bg-[#2A0A4A]/60" />
-
         <div className="relative max-w-3xl mx-auto">
 
-          <span className="inline-block text-xs tracking-widest uppercase bg-blue-500/20 border border-blue-400/30 px-4 py-1 rounded-full mb-6">
+          <span className="inline-block text-xs tracking-widest uppercase bg-green-500/20 border border-green-300/40 px-4 py-1 rounded-full mb-6">
             Our Story
           </span>
 
           <h1 className="text-4xl sm:text-5xl font-bold leading-tight">
-            Shopping <span className="text-[#4FA8FF]">Reimagined</span>
+            Shopping <span className="text-[#9EF7B1]">Reimagined</span>
           </h1>
 
           <p className="mt-6 text-gray-300 text-base sm:text-lg">
@@ -452,7 +450,7 @@ export default function AboutUs() {
 
             <button
               onClick={() => navigate("/products")}
-              className="bg-[#7B6BEE] px-6 py-3 rounded-xl font-semibold hover:bg-[#8B7CF1] hover:shadow-[0_0_0_3px_rgba(255,255,255,0.14)] transition"
+              className="bg-[#2E8B57] px-6 py-3 rounded-xl font-semibold hover:bg-[#3A9C66] hover:shadow-[0_0_0_3px_rgba(255,255,255,0.14)] transition"
             >
               Explore Our Store
             </button>
@@ -465,8 +463,8 @@ export default function AboutUs() {
 
 
       {/* CTA */}
-      <section className="bg-[#3d1278]">
-        <div className="w-full bg-[#3d1278] text-white text-center px-6 py-12 sm:px-10 sm:py-16 shadow-[0_12px_40px_rgba(61,18,120,0.28)]">
+      <section className="bg-[#143d20]">
+        <div className="w-full bg-[#143d20] text-white text-center px-6 py-12 sm:px-10 sm:py-16 shadow-[0_12px_40px_rgba(20,61,32,0.35)]">
           <h2 className="text-3xl font-bold">
             We're Just Getting Started
           </h2>
@@ -477,7 +475,7 @@ export default function AboutUs() {
 
           <button
             onClick={() => navigate("/products")}
-            className="mt-8 bg-[#7B6BEE] text-white px-8 py-3 rounded-xl font-semibold hover:bg-[#8B7CF1] transition"
+            className="mt-8 bg-[#2E8B57] text-white px-8 py-3 rounded-xl font-semibold hover:bg-[#3A9C66] transition"
           >
             Start Shopping →
           </button>
