@@ -52,10 +52,10 @@ export default function ProductDetails() {
       {/* BREADCRUMB */}
       <div className="text-sm text-gray-500 mb-8">
 
-        <Link to="/" className="hover:text-blue-600">Home</Link>
+        <Link to="/" className="hover:text-green-600">Home</Link>
         <span className="mx-2">/</span>
 
-        <Link to="/products" className="hover:text-blue-600">Products</Link>
+        <Link to="/products" className="hover:text-green-600">Products</Link>
         <span className="mx-2">/</span>
 
         <span className="text-gray-700">{product.name}</span>
@@ -86,7 +86,7 @@ export default function ProductDetails() {
                 onClick={() => setImageIndex(i)}
                 className={`w-20 h-20 rounded-lg overflow-hidden border-2 transition
                 ${imageIndex === i
-                  ? "border-blue-600"
+                  ? "border-green-600"
                   : "border-gray-200 hover:border-gray-400"
                 }`}
               >
@@ -120,12 +120,12 @@ export default function ProductDetails() {
                 <span className="text-gray-400 line-through text-lg">
                   {formatPrice(product.price)}
                 </span>
-                <span className="text-blue-800 font-bold text-2xl">
+                <span className="text-green-800 font-bold text-2xl">
                   {formatPrice(product.discountPrice)}
                 </span>
               </div>
             ) : (
-              <p className="text-2xl font-bold text-blue-800">
+              <p className="text-2xl font-bold text-green-800">
                 {formatPrice(product.price)}
               </p>
             )}
@@ -189,8 +189,8 @@ export default function ProductDetails() {
             ${product.stock === 0
               ? "bg-gray-400 cursor-not-allowed"
               : added
-              ? "bg-green-600"
-              : "bg-blue-600 hover:bg-blue-700"
+              ? "bg-green-500"
+              : "bg-green-700 hover:bg-green-800"
             }`}
           >
 
