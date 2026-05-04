@@ -7,6 +7,7 @@ import {
   query,
   serverTimestamp,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 
 import { db } from "../firebaseConfig";
@@ -69,4 +70,8 @@ export const markContactMessageRead = async (id) => {
     status: "read",
     readAt: serverTimestamp(),
   });
+};
+
+export const deleteContactMessage = async (id) => {
+  await deleteDoc(doc(db, "contactMessages", id));
 };

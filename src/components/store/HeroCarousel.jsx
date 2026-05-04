@@ -58,7 +58,7 @@ export default function Carousel({ slides }) {
             >
               <div className="space-y-4 max-w-[90%] sm:max-w-md md:max-w-lg text-white">
 
-                <span className="block text-xs uppercase tracking-wider text-blue-200 font-semibold">
+                <span className="block text-xs uppercase tracking-wider text-green-200 font-semibold">
                   {slide.tag}
                 </span>
 
