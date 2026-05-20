@@ -56,9 +56,9 @@ const Footer = () => {
             Shop
           </h3>
           <ul className="space-y-4 text-sm">
-            <li><Link to="/products" className="hover:text-gray-300 transition">Custom T-Shirts</Link></li>
-            <li><Link to="/products" className="hover:text-gray-300 transition">Printed T-Shirts</Link></li>
-            <li><Link to="/products" className="hover:text-gray-300 transition">Corporate T-Shirts</Link></li>
+            <li><Link to="/products" className="hover:text-gray-300 transition">Organic Snacks</Link></li>
+            <li><Link to="/products" className="hover:text-gray-300 transition">Herbal Tea</Link></li>
+            <li><Link to="/products" className="hover:text-gray-300 transition">Natural Oils</Link></li>
           </ul>
         </div>
 
