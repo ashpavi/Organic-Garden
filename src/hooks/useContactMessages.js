@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import {
   markContactMessageRead,
   subscribeContactMessages,
+  deleteContactMessage,
 } from "../firebase/services/messageService";
 
 export const useContactMessages = () => {
@@ -29,10 +30,15 @@ export const useContactMessages = () => {
     await markContactMessageRead(id);
   };
 
+   const deleteMessage = async (id) => {
+    await deleteContactMessage(id);
+  };
+
   return {
     messages,
     loading,
     error,
     setRead,
+    deleteMessage,
   };
 };

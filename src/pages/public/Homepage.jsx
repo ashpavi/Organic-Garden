@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import { useProducts } from "../../hooks/useProducts";
 import { useCategories } from "../../hooks/useCategories";
 
-import slide1 from "../../assets/1.png";
-import slide2 from "../../assets/2.png";
-import slide3 from "../../assets/3.png";
-import slide4 from "../../assets/4.png";
+import slide1 from "../../assets/1.jpg";
+import slide2 from "../../assets/2.jpg";
+import slide3 from "../../assets/3.jpg";
+import slide4 from "../../assets/4.jpg";
 
 import ProductCard from "../../components/store/ProductCard";
 import Carousel from "../../components/store/HeroCarousel";
@@ -20,31 +20,31 @@ import { subscribePromoConfig } from "../../firebase/services/promoService";
 /* ================= HERO FALLBACK ================= */
 const fallbackSlides = [
   {
-    tag: "New Collection",
-    title: "Refined Essentials For Modern Living",
+    tag: "Organic Garden",
+    title: "Pure Goodness In Every Bite",
     subtitle:
-      "Crafted with precision and designed for those who value timeless quality.",
-    image: slide1,
+      "Enjoy 100% natural dehydrated fruits with no added sugar. Healthy, tasty, and convenient.",
+    image: slide1, // mixed fruit pack
   },
   {
-    tag: "Signature Series",
-    title: "Elevate Your Everyday Experience",
+    tag: "Healthy Living",
+    title: "Snack Smart, Live Better",
     subtitle:
-      "Minimal design. Maximum impact. Discover products made to inspire.",
+      "From tropical fruit mixes to daily nutrition boosters, fuel your body the natural way.",
     image: slide2,
   },
   {
-    tag: "Editor's Pick",
-    title: "Curated For Excellence",
+    tag: "Herbal Care",
+    title: "Nature’s Healing Power",
     subtitle:
-      "Hand-selected premium pieces tailored to your lifestyle.",
-    image: slide3,
+      "Traditional herbal blends crafted to support heart health, immunity, and overall wellness.",
+    image: slide3, // herbal tea product
   },
   {
-    tag: "Limited Drop",
-    title: "Streetwear That Speaks",
+    tag: "Daily Wellness",
+    title: "Healthy Habits Made Easy",
     subtitle:
-      "Fresh styles designed to stand out in every season.",
+      "Convenient, organic products designed for your everyday lifestyle.",
     image: slide4,
   },
 ];
