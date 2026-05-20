@@ -7,7 +7,7 @@ import {
 } from "../firebase/services/productService";
 
 import { collection, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase/firebaseConfig";
+import { db, firebaseConfig } from "../firebase/firebaseConfig";
 
 export const ProductContext = createContext();
 
@@ -19,6 +19,10 @@ export const ProductProvider = ({ children }) => {
   /* ================= REALTIME PRODUCTS ================= */
 
   useEffect(() => {
+    if (!db?.app?.options?.projectId || !firebaseConfig.projectId) {
+      setLoading(false);
+      return;
+    }
 
     const unsubscribe = onSnapshot(
       collection(db, "products"),

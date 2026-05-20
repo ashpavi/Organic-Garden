@@ -9,12 +9,18 @@ import {
 
 import { db } from "../firebaseConfig";
 
-const categoryCollection = collection(db, "categories");
+const isFirebaseReady = Boolean(db?.app?.options?.projectId);
 
 
 /* GET ALL CATEGORIES */
 
 export const getCategories = async () => {
+
+  if (!isFirebaseReady) {
+    return [];
+  }
+
+  const categoryCollection = collection(db, "categories");
 
   const snapshot = await getDocs(categoryCollection);
 
@@ -30,6 +36,12 @@ export const getCategories = async () => {
 
 export const addCategory = async (categoryData) => {
 
+  if (!isFirebaseReady) {
+    throw new Error("Firebase is not configured.");
+  }
+
+  const categoryCollection = collection(db, "categories");
+
   const docRef = await addDoc(categoryCollection, categoryData);
 
   return docRef.id;
@@ -41,6 +53,10 @@ export const addCategory = async (categoryData) => {
 
 export const updateCategory = async (id, updatedData) => {
 
+  if (!isFirebaseReady) {
+    throw new Error("Firebase is not configured.");
+  }
+
   const categoryRef = doc(db, "categories", id);
 
   await updateDoc(categoryRef, updatedData);
@@ -51,6 +67,10 @@ export const updateCategory = async (id, updatedData) => {
 /* DELETE CATEGORY */
 
 export const deleteCategory = async (id) => {
+
+  if (!isFirebaseReady) {
+    throw new Error("Firebase is not configured.");
+  }
 
   const categoryRef = doc(db, "categories", id);
 

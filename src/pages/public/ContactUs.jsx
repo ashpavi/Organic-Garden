@@ -30,10 +30,10 @@ const contactMethods = [
     value: "wavoclothinglk@gmail.com",
     href: "https://mail.google.com/mail/?view=cm&fs=1&to=wavoclothinglk@gmail.com",
     bg: "bg-white",
-    border: "border-[#DCD2FF]",
-    iconBg: "bg-[#CFC1FF]",
-    color: "#7E6FE3",
-    text: "text-[#5E4EC5]",
+    border: "border-[#cfe9d6]",
+    iconBg: "bg-[#dff4e5]",
+    color: "#2E8B57",
+    text: "text-[#1f6f44]",
     Icon: EmailIcon,
   },
   {
@@ -42,10 +42,10 @@ const contactMethods = [
     value: "+94 76 535 8085",
     href: "tel:+94765358085",
     bg: "bg-white",
-    border: "border-[#CFDBFF]",
-    iconBg: "bg-[#BDD0FF]",
-    color: "#4D77DB",
-    text: "text-[#345BB8]",
+    border: "border-[#c7e5d0]",
+    iconBg: "bg-[#d8f0e0]",
+    color: "#3A9C66",
+    text: "text-[#287a4a]",
     Icon: PhoneIcon,
   },
   {
@@ -53,10 +53,10 @@ const contactMethods = [
     desc: "Serving customers online",
     value: "Available online, Sri Lanka.",
     bg: "bg-white",
-    border: "border-[#E0D8FF]",
-    iconBg: "bg-[#D8CBFF]",
-    color: "#8A73E6",
-    text: "text-[#6A53CC]",
+    border: "border-[#d4eddc]",
+    iconBg: "bg-[#e3f6e8]",
+    color: "#57B579",
+    text: "text-[#2f8f55]",
     Icon: LocationIcon,
   },
 ];
@@ -129,12 +129,12 @@ export default function ContactUs() {
         <div className="absolute inset-0 bg-black/15"/>
 
         <div className="relative">
-          <span className="bg-blue-500/20 border border-blue-400/30 px-4 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">
+          <span className="bg-green-500/20 border border-green-300/40 px-4 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">
             Get in Touch
           </span>
 
           <h1 className="text-4xl md:text-5xl font-bold mt-6">
-            We'd love to <span className="text-blue-400">hear</span> from you
+            We'd love to <span className="text-[#9EF7B1]">hear</span> from you
           </h1>
 
           <p className="text-gray-300 mt-4 max-w-xl mx-auto">
@@ -196,7 +196,7 @@ export default function ContactUs() {
 
               <button
                 onClick={() => setSubmitted(false)}
-                className="mt-6 border px-6 py-2 rounded-lg hover:border-blue-600 hover:text-blue-600 transition"
+                className="mt-6 border px-6 py-2 rounded-lg hover:border-green-600 hover:text-green-600 transition"
               >
                 Send another
               </button>
@@ -220,7 +220,7 @@ export default function ContactUs() {
                 <div className="grid sm:grid-cols-2 gap-4">
 
                   <input
-                    className="border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 outline-none"
                     placeholder="Full Name"
                     value={formData.fullName}
                     onChange={(e) => handleChange("fullName", e.target.value)}
@@ -229,7 +229,7 @@ export default function ContactUs() {
 
                   <input
                     type="email"
-                    className="border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 outline-none"
                     placeholder="Email Address"
                     value={formData.email}
                     onChange={(e) => handleChange("email", e.target.value)}
@@ -239,7 +239,7 @@ export default function ContactUs() {
                 </div>
 
                 <select
-                  className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 outline-none"
                   value={formData.topic}
                   onChange={(e) => handleChange("topic", e.target.value)}
                   required
@@ -253,7 +253,7 @@ export default function ContactUs() {
 
                 <textarea
                   rows="5"
-                  className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 outline-none"
                   placeholder="Tell us how we can help"
                   value={formData.message}
                   onChange={(e) => handleChange("message", e.target.value)}
@@ -263,7 +263,7 @@ export default function ContactUs() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full bg-[#3B82F6] text-white py-3 rounded-lg hover:bg-[#2563EB] transition"
+                  className="w-full bg-[#2E8B57] text-white py-3 rounded-lg hover:bg-[#3A9C66] transition"
                 >
                   {submitting ? "Sending..." : "Send Message →"}
                 </button>

@@ -21,6 +21,11 @@ export const AuthProvider = ({ children }) => {
   const { clearCart } = useContext(CartContext); // ✅ NEW
 
   useEffect(() => {
+    if (!auth || !db) {
+      setLoading(false);
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
 
       // PREVENT REDIRECT WHEN CREATING ADMIN

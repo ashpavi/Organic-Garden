@@ -2,7 +2,7 @@ import { doc, onSnapshot, serverTimestamp, setDoc } from "firebase/firestore";
 
 import { db } from "../firebaseConfig";
 
-const homepageHeroDocRef = doc(db, "siteConfig", "homepageHero");
+const isFirebaseReady = Boolean(db?.app?.options?.projectId);
 
 const normalizeSlide = (slide = {}) => ({
   tag: slide.tag || "",
@@ -12,6 +12,13 @@ const normalizeSlide = (slide = {}) => ({
 });
 
 export const subscribeHomepageHeroConfig = (onData, onError) => {
+  if (!isFirebaseReady) {
+    onData({ slides: [], preferredStyle: "", updatedAt: null });
+    return () => {};
+  }
+
+  const homepageHeroDocRef = doc(db, "siteConfig", "homepageHero");
+
   return onSnapshot(
     homepageHeroDocRef,
     (snapshot) => {
@@ -35,6 +42,12 @@ export const subscribeHomepageHeroConfig = (onData, onError) => {
 };
 
 export const saveHomepageHeroConfig = async ({ slides, preferredStyle = "" }) => {
+  if (!isFirebaseReady) {
+    throw new Error("Firebase is not configured.");
+  }
+
+  const homepageHeroDocRef = doc(db, "siteConfig", "homepageHero");
+
   const cleanedSlides = (slides || [])
     .map(normalizeSlide)
     .filter((slide) => slide.image);

@@ -40,6 +40,11 @@ export default function ProfileSettings() {
     try {
       setLoading(true);
 
+      if (!auth || !db || !currentUser) {
+        alert("Profile settings are unavailable right now.");
+        return;
+      }
+
       const user = auth.currentUser;
 
       if (name !== currentUser.name) {
