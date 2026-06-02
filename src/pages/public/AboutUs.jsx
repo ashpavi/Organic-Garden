@@ -2,6 +2,70 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AboutHeroArtwork from "../../components/store/AboutHeroArtwork";
 
+function Icon({ name, size = 20 }) {
+  const common = { width: size, height: size, viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round" };
+
+  switch (name) {
+    case "target":
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="12" r="9" />
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 3v3M12 18v3M3 12h3M18 12h3" />
+        </svg>
+      );
+    case "globe":
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="12" r="9" />
+          <path d="M2 12h20M12 2c2 3 2 7 0 12c2-5 2-9 0-12z" />
+        </svg>
+      );
+    case "leaf":
+      return (
+        <svg {...common}>
+          <path d="M21 11c-3 1-6 1-9 4-3 3-4 6-4 6s3-1 6-4c3-3 3-6 4-9z" />
+          <path d="M7 7c4 0 6 4 10 8" />
+        </svg>
+      );
+    case "tea":
+      return (
+        <svg {...common}>
+          <path d="M3 8h13v5a4 4 0 01-4 4H9" />
+          <path d="M17 10a3 3 0 010 6" />
+        </svg>
+      );
+    case "chili":
+      return (
+        <svg {...common}>
+          <path d="M3 21c6-6 10-10 18-12" />
+          <path d="M14 7c2 2 4 4 6 6" />
+          <path d="M20 4c-1 1-2 1-3 2" />
+        </svg>
+      );
+    case "fruit":
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="12" r="4" />
+          <path d="M14 8c1-1 2-2 3-2" />
+        </svg>
+      );
+    case "bowl":
+      return (
+        <svg {...common}>
+          <path d="M3 12c3 4 6 6 9 6s6-2 9-6" />
+          <path d="M8 8c1-2 3-3 4-3s3 1 4 3" />
+        </svg>
+      );
+    default:
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="12" r="4" />
+        </svg>
+      );
+  }
+}
+
 const aboutSectionsStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
@@ -82,8 +146,8 @@ const aboutSectionsStyles = `
 
   .values-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 2px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
     position: relative;
     z-index: 1;
   }
@@ -91,10 +155,14 @@ const aboutSectionsStyles = `
   .value-card {
     padding: 40px 32px;
     border: 1px solid var(--border);
-    background: #f1fbf4;
+    background: #fdfcf9;
     transition: background 0.3s ease, transform 0.3s ease;
     cursor: default;
     font-family: 'Playfair Display', serif;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 
   .value-card:hover {
@@ -111,8 +179,17 @@ const aboutSectionsStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 24px;
+    margin-bottom: 12px;
     font-size: 22px;
+  }
+
+  .category-number {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: #2e8b57;
+    margin-bottom: 8px;
+    font-weight: 600;
+    letter-spacing: 1px;
   }
 
   .value-name {
@@ -271,72 +348,40 @@ const aboutSectionsStyles = `
   }
 
   @media (max-width: 768px) {
-    .how-steps {
-      grid-template-columns: 1fr;
-      gap: 40px;
+    .values-grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
     }
-    .how-arrow { display: none; }
     .values-section { padding: 56px 24px 28px; }
-    .how-section { padding: 36px 24px 64px; }
   }
 `;
 
 const values = [
   {
-    icon: "✦",
-    name: "Bold by Design",
-    desc: "We don't follow trends - we set them. Every piece is crafted to make you stand out, not blend in.",
+    icon: "target",
+    name: "Our Mission",
+    desc: "To provide safe, high-quality organic products that improve the health and well-being of our customers while supporting local agriculture and sustainable production methods.",
   },
   {
-    icon: "♻",
-    name: "Consciously Made",
-    desc: "From fabric to finish, we choose materials and methods that respect both people and the planet.",
-  },
-  {
-    icon: "◈",
-    name: "Radically Inclusive",
-    desc: "Fashion is for everybody. Our sizing, styling, and storytelling celebrate every shape and identity.",
-  },
-  {
-    icon: "◉",
-    name: "Built to Last",
-    desc: "Quality over quantity, always. We make clothes you'll reach for again and again, season after season.",
+    icon: "globe",
+    name: "Our Vision",
+    desc: "To become a trusted Sri Lankan brand that promotes healthy living through natural, sustainable, and eco-friendly food products — bringing the goodness of nature to every home.",
   },
 ];
 
-const steps = [
-  {
-    emoji: "✦",
-    title: "Discover Your Style",
-    desc: "Browse curated collections built around your vibe, season, and budget.",
-  },
-  {
-    emoji: "◈",
-    title: "We Pack With Care",
-    desc: "Your order is hand-checked and eco-packed before it heads your way.",
-  },
-  {
-    emoji: "✧",
-    title: "Wear & Own It",
-    desc: "Delivered to your door. Loved from day one. Free returns, always.",
-  },
-];
 
 function ValuesSection() {
   return (
     <section className="values-section">
-      <span className="section-label">What We Stand For</span>
+      <span className="section-label">WHAT WE STAND FOR</span>
       <h2 className="values-title">
-        Clothing with a <em>purpose</em>
+        Purpose rooted in <em>nature</em>
       </h2>
-      <p className="values-subtitle">
-        WAVO was built on four pillars that guide every decision - from the thread we choose to the stories we tell.
-      </p>
+      <p className="values-subtitle"> </p>
       <div className="values-grid">
         {values.map((v, i) => (
           <div className="value-card" key={i} style={{ position: "relative" }}>
-            <span className="value-number">{String(i + 1).padStart(2, "0")}</span>
-            <div className="value-icon">{v.icon}</div>
+            <div className="value-icon"><Icon name={v.icon} size={22} /></div>
             <div className="value-name">{v.name}</div>
             <div className="value-desc">{v.desc}</div>
           </div>
@@ -346,75 +391,72 @@ function ValuesSection() {
   );
 }
 
-function HowItWorksSection() {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
-
-  const renderStepTitle = (title) => {
-    if (!title.includes("&")) {
-      return title;
-    }
-
-    const [left, right] = title.split("&");
-
-    return (
-      <>
-        {left}
-        <span className="accent-amp">&</span>
-        {right}
-      </>
-    );
-  };
-
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) setVisible(true);
-      },
-      { threshold: 0.2 }
-    );
-
-    if (ref.current) obs.observe(ref.current);
-
-    return () => obs.disconnect();
-  }, []);
-
-  return (
-    <section className="how-section" ref={ref}>
-      <div className="how-header">
-        <span className="section-label" style={{ color: "#2E8B57" }}>The WAVO Experience</span>
-        <h2 className="how-title">
-          Shopping made <span>effortless</span>
-        </h2>
-        <p className="how-sub">Three simple steps from discovery to your door.</p>
-      </div>
-      <div className="how-steps">
-        {steps.map((s, i) => (
-          <Fragment key={s.title}>
-            <div className={`how-step${visible ? " visible" : ""}`}>
-              <div className="step-circle">
-                <span className="step-icon">{s.emoji}</span>
-                <span className="step-num">{i + 1}</span>
-              </div>
-              <div className="step-title">{renderStepTitle(s.title)}</div>
-              
-              <div className="step-desc">{s.desc}</div>
-            </div>
-            {i < steps.length - 1 && <div className="how-arrow">→</div>}
-          </Fragment>
-        ))}
-      </div>
-    </section>
-  );
-}
 
 function AboutSections() {
   return (
     <>
       <style>{aboutSectionsStyles}</style>
       <ValuesSection />
-      <HowItWorksSection />
+      <CategoriesSection />
     </>
+  );
+}
+
+const categories = [
+  {
+    icon: "tea",
+    number: "01",
+    title: "Herbal Tea",
+    desc: "Crafted from curry leaves, hibiscus, lotus flowers, and more — designed to support wellness, improve digestion, and boost immunity naturally.",
+  },
+  {
+    icon: "chili",
+    number: "02",
+    title: "Natural Spices",
+    desc: "Premium-quality spices packed with natural aroma and flavor, hygienically processed while maintaining their full nutritional value.",
+  },
+  {
+    icon: "fruit",
+    number: "03",
+    title: "Dehydrated Fruits",
+    desc: "Prepared using advanced dehydration techniques to preserve natural taste, vitamins, and freshness — with no harmful additives.",
+  },
+  {
+    icon: "leaf",
+    number: "04",
+    title: "Dehydrated Vegetables",
+    desc: "Nutritious and convenient — carefully processed to maintain quality and flavor, perfect for healthy cooking and long-term storage.",
+  },
+  {
+    icon: "bowl",
+    number: "05",
+    title: "Ready-to-Cook Soups",
+    desc: "Healthy and convenient soup mixes made from natural vegetables and herbs. Easy to prepare and packed with nutrition for daily wellness.",
+  },
+];
+
+function CategoriesSection() {
+  return (
+    <section className="values-section categories-section">
+      <span className="section-label">OUR PRODUCT CATEGORIES</span>
+      <h2 className="values-title">
+        Goodness of nature, <em>every</em> form
+      </h2>
+      <div className="values-grid category-grid" style={{ marginTop: 24 }}>
+        {categories.map((c, i) => (
+          <div className="value-card category-card" key={i}>
+            <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+              <div className="value-icon category-icon"><Icon name={c.icon} size={20} /></div>
+              <div>
+                <div className="category-number">{c.number}</div>
+                <div className="value-name">{c.title}</div>
+              </div>
+            </div>
+            <div className="value-desc" style={{ marginTop: 12 }}>{c.desc}</div>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -438,12 +480,13 @@ export default function AboutUs() {
           </span>
 
           <h1 className="text-4xl sm:text-5xl font-bold leading-tight">
-            Shopping <span className="text-[#9EF7B1]">Reimagined</span>
+            Welcome to <span className="text-[#9EF7B1]">Organic Garden</span>
           </h1>
 
           <p className="mt-6 text-gray-300 text-base sm:text-lg">
-            We believe shopping should feel effortless, transparent,
-            and inspiring — not overwhelming.
+            We believe that nature provides the best solutions for a healthy lifestyle.
+            Our mission is to bring high-quality, natural, and carefully prepared organic
+            products directly to your home.
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
@@ -466,18 +509,18 @@ export default function AboutUs() {
       <section className="bg-[#143d20]">
         <div className="w-full bg-[#143d20] text-white text-center px-6 py-12 sm:px-10 sm:py-16 shadow-[0_12px_40px_rgba(20,61,32,0.35)]">
           <h2 className="text-3xl font-bold">
-            We're Just Getting Started
+            Start Living Healthier, Naturally
           </h2>
 
           <p className="mt-4 text-white/80">
-            Join us on our journey to redefine modern shopping.
+            Discover premium organic products — 100% natural, no harmful chemicals, islandwide delivery available across Sri Lanka.
           </p>
 
           <button
             onClick={() => navigate("/products")}
             className="mt-8 bg-[#2E8B57] text-white px-8 py-3 rounded-xl font-semibold hover:bg-[#3A9C66] transition"
           >
-            Start Shopping →
+            Explore Our Store →
           </button>
         </div>
       </section>
