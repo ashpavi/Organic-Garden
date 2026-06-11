@@ -50,7 +50,7 @@ export default function Checkout() {
 
   const isFreeDelivery = subtotal >= 5000;
 
-  const DELIVERY_FEE = !isFreeDelivery ? 350 : 0;
+  const DELIVERY_FEE = !isFreeDelivery ? 450 : 0;
 
   const total = subtotal + DELIVERY_FEE;
 
@@ -300,7 +300,7 @@ export default function Checkout() {
             {!isFreeDelivery && (
               <div className="flex justify-between">
                 <span>Delivery</span>
-                <span>{formatPrice(350)}</span>
+                <span>{formatPrice(450)}</span>
               </div>
             )}
 

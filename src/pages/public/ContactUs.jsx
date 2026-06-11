@@ -27,8 +27,8 @@ const contactMethods = [
   {
     title: "Email Us",
     desc: "We'll respond within 24 hours",
-    value: "wavoclothinglk@gmail.com",
-    href: "https://mail.google.com/mail/?view=cm&fs=1&to=wavoclothinglk@gmail.com",
+    value: "organicgardenlk@gmail.com",
+    href: "https://mail.google.com/mail/?view=cm&fs=1&to=organicgardenlk@gmail.com",
     bg: "bg-white",
     border: "border-[#cfe9d6]",
     iconBg: "bg-[#dff4e5]",
@@ -39,8 +39,8 @@ const contactMethods = [
   {
     title: "Call Us",
     desc: "Mon-Sat, 9am to 6pm LKT",
-    value: "+94 76 535 8085",
-    href: "tel:+94765358085",
+    value: "+94 70 910 2573",
+    href: "tel:+94709102573",
     bg: "bg-white",
     border: "border-[#c7e5d0]",
     iconBg: "bg-[#d8f0e0]",
@@ -64,19 +64,19 @@ const contactMethods = [
 const faqs = [
   {
     q: "How long does shipping take?",
-    a: "Standard shipping takes 3–5 business days.",
+    a: "Standard shipping takes 3-5 business days.",
   },
   {
     q: "Can I return a product?",
-    a: "Yes! We offer returns within 30 days.",
-  },
-  {
-    q: "Where is my order?",
-    a: "You'll receive a tracking link via email.",
-  },
+    a: "Yes! We offer returns within 7 days, Please give us a call",
+  },  
   {
     q: "How do I cancel my order?",
-    a: "Orders can be modified within 1 hour.",
+    a: "Orders can be modified within 1 hour, Please give us a call",
+  },
+  {
+  q: "How can I contact customer support?",
+  a: "You can reach our support team through the Contact Us page or by emailing us for assistance.",
   },
 ];
 

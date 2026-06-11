@@ -8,7 +8,7 @@ import logo from "../../assets/logo.png";
 
 export default function AdminOrders() {
 
-  const { orders, loading, updateOrderStatus } = useOrders();
+  const { orders, loading, updateOrderStatus, updateOrder } = useOrders();
   const [selectedOrder, setSelectedOrder] = useState(null);
 
   const printRef = useRef();
@@ -59,6 +59,7 @@ export default function AdminOrders() {
                 <th className="p-4">Customer</th>
                 <th className="p-4">Total</th>
                 <th className="p-4">Payment</th>
+                <th className="p-4 text-center">Paid</th>
                 <th className="p-4">Status</th>
                 <th className="p-4 text-center">Actions</th>
               </tr>
@@ -81,6 +82,43 @@ export default function AdminOrders() {
 
                   <td className="p-4 text-gray-600">
                     {formatPaymentMethod(order.paymentMethod)}
+                  </td>
+
+                  
+                  <td className="p-4 text-center">
+                    {formatPaymentMethod(order.paymentMethod) === "Bank Transfer" ? (
+
+                      <select
+                    value={order.paymentStatus || "Pending Payment"}
+                    onChange={(e) =>
+                      updateOrder(order.id, {
+                        paymentStatus: e.target.value,
+                      })
+                    }
+                    className={`px-3 py-1 rounded-full text-sm font-medium border-0 cursor-pointer
+                      ${
+                        (order.paymentStatus || "Pending Payment") === "Paid"
+                          ? "bg-green-100 text-green-700"
+                          : "bg-red-100 text-red-700"
+                      }`}
+                  >
+                        <option value="Pending Payment">
+                          Pending Payment
+                        </option>
+
+                        <option value="Paid">
+                          Paid
+                        </option>
+                      </select>
+
+                    ) : (
+
+                      <span className="text-gray-400">
+                        —
+                      </span>
+
+                    )}
+
                   </td>
 
                   <td className="p-4">
@@ -150,17 +188,81 @@ export default function AdminOrders() {
               <div className="border-t pt-3 flex justify-between items-center">
                 <div>
                   <p className="text-xs text-gray-400">Payment</p>
+
                   <p className="text-sm">
                     {formatPaymentMethod(order.paymentMethod)}
                   </p>
+
+                  <p className="mt-1">
+
+  <span className="text-gray-500">
+    Payment Status:
+  </span>{" "}
+
+  {formatPaymentMethod(order.paymentMethod) === "Bank Transfer" ? (
+
+    <span
+      className={`inline-flex px-2 py-1 rounded-full text-xs font-medium ${
+        (order.paymentStatus || "Pending Payment") === "Paid"
+          ? "bg-green-100 text-green-700"
+          : "bg-red-100 text-red-700"
+      }`}
+    >
+      {order.paymentStatus || "Pending Payment"}
+    </span>
+
+  ) : formatPaymentMethod(order.paymentMethod) === "Cash on Delivery" ? (
+
+    <span className="inline-flex px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700">
+      To Be Collected
+    </span>
+
+  ) : (
+
+    <span className="inline-flex px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
+      Paid
+    </span>
+
+  )}
+
+</p>
                 </div>
 
-                <span className={`text-xs px-2 py-1 rounded-full ${statusColor(order.status)}`}>
+                <span
+                  className={`text-xs px-2 py-1 rounded-full ${statusColor(
+                    order.status
+                  )}`}
+                >
                   {order.status}
                 </span>
               </div>
 
               {/* STATUS */}
+              {formatPaymentMethod(order.paymentMethod) === "Bank Transfer" && (
+                <select
+                  value={order.paymentStatus || "Pending Payment"}
+                  onChange={(e) =>
+                    updateOrder(order.id, {
+                      paymentStatus: e.target.value,
+                    })
+                  }
+                  className={`w-full px-3 py-2 rounded-lg text-sm mt-2 ${
+                    (order.paymentStatus || "Pending Payment") === "Paid"
+                      ? "bg-green-100 text-green-700"
+                      : "bg-red-100 text-red-700"
+                  }`}
+                >
+                  <option value="Pending Payment">
+                    Pending Payment
+                  </option>
+
+                  <option value="Paid">
+                    Paid
+                  </option>
+                </select>
+
+              )}
+
               <select
                 value={order.status}
                 onChange={(e) =>
@@ -173,6 +275,8 @@ export default function AdminOrders() {
                 <option>Delivered</option>
                 <option>Cancelled</option>
               </select>
+
+              
 
               {/* ACTION */}
               <div className="flex justify-end border-t pt-3">
@@ -201,8 +305,7 @@ export default function AdminOrders() {
               Order Details
             </h2>
 
-            {/* YOUR ORIGINAL MODAL LOGIC — UNCHANGED */}
-            {/* (kept exactly same below) */}
+            
 
             {/* CALCULATIONS */}
             {(() => {
@@ -222,6 +325,15 @@ export default function AdminOrders() {
                     <p><strong>Email:</strong> {selectedOrder.customer?.email}</p>
                     <p><strong>Phone:</strong> {selectedOrder.customer?.contactno}</p>
                     <p><strong>Payment Method:</strong> {formatPaymentMethod(selectedOrder.paymentMethod)}</p>
+                    <p>
+                      <strong>Payment Status:</strong>{" "}
+
+                      {formatPaymentMethod(selectedOrder.paymentMethod) === "Bank Transfer"
+                        ? selectedOrder.paymentStatus || "Pending Payment"
+                        : selectedOrder.paymentMethod === "cash_on_delivery"
+                        ? "To Be Collected"
+                        : "Paid"}
+                    </p>
                     <p><strong>Status:</strong> {selectedOrder.status}</p>
                   </div>
 
@@ -280,7 +392,9 @@ export default function AdminOrders() {
         <div ref={printRef} style={{ fontFamily: "Arial", padding: "30px" }}>
 
           {selectedOrder && (() => {
+
             const deliveryFee = selectedOrder.deliveryFee || 0;
+
             const subtotal =
               selectedOrder.subtotal ||
               selectedOrder.items.reduce(
@@ -289,63 +403,232 @@ export default function AdminOrders() {
               );
 
             return (
-              <>
+              <div>
+
                 {/* HEADER */}
-                <div style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  borderBottom: "2px solid #eee",
-                  paddingBottom: "10px"
-                }}>
-                  <img src={logo} alt="Logo" style={{ height: "50px" }} />
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    borderBottom: "2px solid #ddd",
+                    paddingBottom: "15px",
+                    marginBottom: "20px",
+                  }}
+                >
+                  <img
+                    src={logo}
+                    alt="logo"
+                    style={{ height: "60px" }}
+                  />
 
                   <div style={{ textAlign: "right" }}>
-                    <h2 style={{ margin: 0 }}>INVOICE</h2>
-                    <p style={{ margin: 0 }}>
+                    <h2 style={{ margin: 0 }}>
+                      DELIVERY INVOICE
+                    </h2>
+
+                    <p style={{ margin: "5px 0" }}>
                       Order ID: {selectedOrder.id}
-                    </p>
+                    </p>                    
                   </div>
                 </div>
 
+                {/* CUSTOMER + DELIVERY */}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: "25px",
+                  }}
+                >
+
+                  <div>
+                    <h3>Customer Details</h3>
+
+                    <p>
+                      <strong>Name:</strong>{" "}
+                      {selectedOrder.customer?.fullName}
+                    </p>
+
+                    <p>
+                      <strong>Phone:</strong>{" "}
+                      {selectedOrder.customer?.contactno}
+                    </p>
+
+                    <p>
+                      <strong>Email:</strong>{" "}
+                      {selectedOrder.customer?.email}
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3>Delivery Address</h3>
+
+                    <p>
+                      {selectedOrder.customer?.streetAddress}
+                    </p>
+
+                    <p>
+                      {selectedOrder.customer?.city}
+                    </p>
+
+                    <p>
+                      {selectedOrder.customer?.zipcode}
+                    </p>
+                  </div>
+
+                </div>
+
+                {/* ORDER INFO */}
+                <div
+                  style={{
+                    marginBottom: "20px",
+                    padding: "10px",
+                    background: "#f8f8f8",
+                    border: "1px solid #ddd",
+                  }}
+                >
+                  
+                  <p>
+                    <strong>Payment Method:</strong>{" "}
+                    {formatPaymentMethod(selectedOrder.paymentMethod)}
+                  </p>
+
+                  <p>
+                    <strong>Payment Status:</strong>{" "}
+
+                    {formatPaymentMethod(selectedOrder.paymentMethod) === "Bank Transfer"
+                    ? selectedOrder.paymentStatus || "Pending Payment"
+                    : selectedOrder.paymentMethod === "cash_on_delivery"
+                    ? "To Be Collected"
+                    : "Paid"}
+                  </p>
+
+                  
+                </div>
+
                 {/* ITEMS */}
-                <table style={{
-                  width: "100%",
-                  marginTop: "30px",
-                  borderCollapse: "collapse"
-                }}>
+                <table
+                  style={{
+                    width: "100%",
+                    borderCollapse: "collapse",
+                    marginTop: "20px",
+                  }}
+                >
+
+                  <thead>
+
+                    <tr style={{ background: "#f5f5f5" }}>
+                      <th style={tdStyle}>Product</th>
+                      <th style={tdStyle}>Qty</th>
+                      <th style={tdStyle}>Price</th>
+                      <th style={tdStyle}>Total</th>
+                    </tr>
+
+                  </thead>
+
                   <tbody>
+
                     {selectedOrder.items.map((item, i) => (
+
                       <tr key={i}>
                         <td style={tdStyle}>{item.name}</td>
                         <td style={tdStyle}>{item.quantity}</td>
-                        <td style={tdStyle}>{formatPrice(item.price)}</td>
                         <td style={tdStyle}>
-                          {formatPrice(item.price * item.quantity)}
+                          {formatPrice(item.price)}
+                        </td>
+                        <td style={tdStyle}>
+                          {formatPrice(
+                            item.price * item.quantity
+                          )}
                         </td>
                       </tr>
+
                     ))}
+
                   </tbody>
+
                 </table>
 
-                {/* TOTAL */}
-                <div style={{ marginTop: "30px", textAlign: "right" }}>
-                  <p>Subtotal: {formatPrice(subtotal)}</p>
+                {/* TOTALS */}
+                <div
+                  style={{
+                    marginTop: "30px",
+                    marginLeft: "auto",
+                    width: "300px",
+                  }}
+                >
 
-                  {deliveryFee > 0 && (
-                    <p>Delivery: {formatPrice(deliveryFee)}</p>
-                  )}
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    <span>Subtotal</span>
+                    <span>{formatPrice(subtotal)}</span>
+                  </div>
 
-                  {deliveryFee === 0 && subtotal > 0 && (
-                    <p style={{ color: "green" }}>Delivery: FREE</p>
-                  )}
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    <span>Delivery Fee</span>
+                    <span>
+                      {deliveryFee > 0
+                        ? formatPrice(deliveryFee)
+                        : "FREE"}
+                    </span>
+                  </div>
 
-                  <h3>Total: {formatPrice(selectedOrder.total)}</h3>
-                  <p>
-                    Payment: {formatPaymentMethod(selectedOrder.paymentMethod)}
-                  </p>
+                  <hr />
+
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      fontWeight: "bold",
+                      fontSize: "18px",
+                      marginTop: "10px",
+                    }}
+                  >
+                    <span>Total</span>
+                    <span>
+                      {formatPrice(selectedOrder.total)}
+                    </span>
+                  </div>
+
                 </div>
-              </>
+
+                {/* FOOTER */}
+                <div
+                  style={{
+                    marginTop: "50px",
+                    borderTop: "1px solid #ddd",
+                    paddingTop: "15px",
+                    textAlign: "center",
+                    fontSize: "12px",
+                    color: "#666",
+                  }}
+                >
+
+                  <p>
+                    Thank you for shopping with us.
+                  </p>
+
+                  <p>
+                    Please keep this invoice for your records.
+                  </p>
+
+                </div>
+
+              </div>
             );
+
           })()}
 
         </div>

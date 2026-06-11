@@ -139,35 +139,31 @@ const aboutSectionsStyles = `
   .values-subtitle {
     font-size: 16px;
     color: var(--muted);
-    max-width: 420px;
-    line-height: 1.7;
-    margin-bottom: 64px;
+    max-width: 850px;
+    line-height: 1.8;
+    margin: 0 auto 64px auto;
+    text-align: center;
   }
 
   .values-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
-    position: relative;
-    z-index: 1;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 450px));
+    justify-content: center;
+    gap: 32px;
   }
 
   .value-card {
     padding: 40px 32px;
-    border: 1px solid var(--border);
-    background: #fdfcf9;
-    transition: background 0.3s ease, transform 0.3s ease;
-    cursor: default;
-    font-family: 'Playfair Display', serif;
-    min-height: 160px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    border-radius: 24px;
+    border: 1px solid #e5f4e9;
+    background: white;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+    transition: all 0.3s ease;
   }
 
-  .value-card:hover {
-    background: #e8f8ee;
-    transform: translateY(-4px);
+ .value-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(46,139,87,0.15);
   }
 
   .value-icon {
@@ -373,20 +369,87 @@ const values = [
 function ValuesSection() {
   return (
     <section className="values-section">
-      <span className="section-label">WHAT WE STAND FOR</span>
-      <h2 className="values-title">
-        Purpose rooted in <em>nature</em>
-      </h2>
-      <p className="values-subtitle"> </p>
-      <div className="values-grid">
-        {values.map((v, i) => (
-          <div className="value-card" key={i} style={{ position: "relative" }}>
-            <div className="value-icon"><Icon name={v.icon} size={22} /></div>
-            <div className="value-name">{v.name}</div>
-            <div className="value-desc">{v.desc}</div>
-          </div>
-        ))}
+
+      <div className="max-w-6xl mx-auto">
+
+        {/* HEADER */}
+
+        <div className="text-center mb-20">
+
+          <span className="section-label">
+            WHAT WE STAND FOR
+          </span>
+
+          <h2 className="values-title">
+            About <em>Organic Garden</em>
+          </h2>
+
+          <p className="values-subtitle">
+            At Organic Garden, we believe that nature provides the best
+            solutions for a healthy lifestyle. Our mission is to bring
+            high-quality, natural, and carefully prepared organic products
+            directly to your home while promoting healthy living through
+            traditional herbal goodness.
+          </p>
+
+          <p
+            className="text-gray-500 max-w-4xl mx-auto mt-6 leading-8"
+            style={{
+              fontFamily: "DM Sans, sans-serif",
+            }}
+          >
+            We specialize in producing and supplying a wide range of natural
+            and herbal food products made using carefully selected ingredients
+            and modern dehydration technology to preserve freshness,
+            nutrition, and authentic flavor.
+          </p>
+
+        </div>
+
+        {/* MISSION & VISION */}
+
+        <div
+          className="values-grid"
+          style={{
+            gridTemplateColumns: "repeat(auto-fit, minmax(350px, 450px))",
+            justifyContent: "center",
+          }}
+        >
+
+          {values.map((v, i) => (
+
+            <div
+              className="value-card"
+              key={i}
+              style={{
+                position: "relative",
+                borderRadius: "24px",
+                background: "#fff",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.05)",
+                border: "1px solid #e8f5ea",
+              }}
+            >
+
+              <div className="value-icon">
+                <Icon name={v.icon} size={22} />
+              </div>
+
+              <div className="value-name">
+                {v.name}
+              </div>
+
+              <div className="value-desc">
+                {v.desc}
+              </div>
+
+            </div>
+
+          ))}
+
+        </div>
+
       </div>
+
     </section>
   );
 }
@@ -396,8 +459,13 @@ function AboutSections() {
   return (
     <>
       <style>{aboutSectionsStyles}</style>
+
       <ValuesSection />
+
       <CategoriesSection />
+
+      <WhyChooseUsSection />
+
     </>
   );
 }
@@ -438,10 +506,23 @@ const categories = [
 function CategoriesSection() {
   return (
     <section className="values-section categories-section">
-      <span className="section-label">OUR PRODUCT CATEGORIES</span>
-      <h2 className="values-title">
-        Goodness of nature, <em>every</em> form
-      </h2>
+      <div className="max-w-7xl mx-auto">
+      <div className="text-center mb-16">
+
+  <span className="section-label">
+    OUR PRODUCT CATEGORIES
+  </span>
+
+  <h2 className="values-title">
+    Our Product <em>Categories</em>
+  </h2>
+
+  <p className="values-subtitle">
+    Explore our range of carefully prepared organic and herbal products,
+    crafted to bring natural nutrition, convenience, and wellness to your daily life.
+  </p>
+
+</div>
       <div className="values-grid category-grid" style={{ marginTop: 24 }}>
         {categories.map((c, i) => (
           <div className="value-card category-card" key={i}>
@@ -456,6 +537,59 @@ function CategoriesSection() {
           </div>
         ))}
       </div>
+      </div>
+    </section>
+  );
+}
+
+function WhyChooseUsSection() {
+  const reasons = [
+    "100% Natural & Organic Products",
+    "Hygienically Processed",
+    "Rich in Nutritional Value",
+    "No Harmful Chemicals",
+    "Islandwide Delivery",
+  ];
+
+  return (
+    <section className="py-16 px-6 bg-[#f8fcf8]">
+
+      <div className="max-w-6xl mx-auto text-center">
+
+        <span className="section-label">
+          WHY CHOOSE US
+        </span>
+
+        <h2 className="values-title">
+          Why Choose <em>Organic Garden</em>
+        </h2>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-5 mt-10">
+
+          {reasons.map((item) => (
+
+            <div
+              key={item}
+              className="bg-white p-5 rounded-2xl border border-green-100
+              hover:-translate-y-2 hover:shadow-lg transition-all duration-300"
+            >
+
+              <div className="text-3xl mb-3">
+                🌿
+              </div>
+
+              <p className="text-sm font-medium text-gray-700">
+                {item}
+              </p>
+
+            </div>
+
+          ))}
+
+        </div>
+
+      </div>
+
     </section>
   );
 }
@@ -483,10 +617,11 @@ export default function AboutUs() {
             Welcome to <span className="text-[#9EF7B1]">Organic Garden</span>
           </h1>
 
-          <p className="mt-6 text-gray-300 text-base sm:text-lg">
-            We believe that nature provides the best solutions for a healthy lifestyle.
-            Our mission is to bring high-quality, natural, and carefully prepared organic
-            products directly to your home.
+          <p className="mt-6 text-gray-300 text-base sm:text-lg leading-8">
+            Nature's Goodness for Healthy Living. We bring carefully prepared
+            herbal teas, natural spices, dehydrated fruits, vegetables, and
+            healthy soup mixes directly to your home while promoting a healthier
+            lifestyle through natural and sustainable food products.
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">

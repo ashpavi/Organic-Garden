@@ -226,7 +226,7 @@ export default function OrderSuccess() {
           <hr className="my-6" />
 
           <div className="flex justify-between font-bold text-lg">
-            <span>Total Paid</span>
+            <span>Total:</span>
             <span className="text-blue-800">
               {formatPrice(total)}
             </span>

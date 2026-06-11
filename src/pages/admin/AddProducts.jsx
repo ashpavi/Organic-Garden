@@ -46,7 +46,7 @@ export default function AddProducts() {
     );
 
     setPreviewImages(previews);
-  };
+  }; 
 
   /* DRAG */
   const handleDragStart = (index) => {

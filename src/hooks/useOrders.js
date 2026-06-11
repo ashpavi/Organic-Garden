@@ -4,7 +4,7 @@ import {
   onSnapshot,
   updateDoc,
   doc,
-  query,
+  query, 
   orderBy,
   where
 } from "firebase/firestore";
@@ -59,9 +59,16 @@ export function useOrders(userId = null) {
     await updateDoc(orderRef, { status });
   };
 
+  const updateOrder = async (orderId, data) => {
+  const orderRef = doc(db, "orders", orderId);
+
+  await updateDoc(orderRef, data);
+};
+
   return {
     orders,
     loading,
-    updateOrderStatus
+    updateOrderStatus,
+    updateOrder,
   };
 }

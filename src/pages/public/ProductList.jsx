@@ -15,6 +15,7 @@ export default function ProductList() {
 
   const selectedCategory = searchParams.get("category") || "All";
   const selectedBrand = searchParams.get("brand") || "All";
+  const selectedOffer = searchParams.get("offers") || "All";
   const priceRange = Number(searchParams.get("maxPrice")) || 50000;
   const searchQuery = (searchParams.get("search") || "").trim().toLowerCase();
 
@@ -39,6 +40,10 @@ export default function ProductList() {
       selectedBrand === "All" ||
       product.brand === selectedBrand;
 
+    const offerMatch =
+      selectedOffer === "All" ||
+      (selectedOffer === "Discounted" && product.isOnSale);
+
     const priceMatch =
       product.price <= priceRange;
 
@@ -48,7 +53,7 @@ export default function ProductList() {
         .toLowerCase()
         .includes(searchQuery);
 
-    return categoryMatch && brandMatch && priceMatch && searchMatch;
+    return categoryMatch && brandMatch && offerMatch && priceMatch && searchMatch;
 
   });
 
@@ -127,7 +132,7 @@ export default function ProductList() {
         <aside
           className={`
           fixed lg:static top-0 left-0 h-full w-72 bg-white z-40
-          pt-35 lg:pt-4 px-6 pb-6 shadow-lg lg:shadow-none
+          pt-25 lg:pt-4 px-6 pb-6 shadow-lg lg:shadow-none
           transform ${showFilters ? "translate-x-0" : "-translate-x-full"}
           lg:translate-x-0 transition-transform duration-300
         `}
@@ -223,6 +228,44 @@ export default function ProductList() {
               </label>
 
             ))}
+
+          </div>
+
+          {/* OFFERS & DISCOUNTS */}
+
+          <div className="mb-8">
+
+            <h3 className="font-semibold text-gray-700 mb-3">
+              Offers & Discounts
+            </h3>
+
+            <label className="flex items-center gap-2 mb-2">
+
+              <input
+                type="radio"
+                className="accent-green-600 cursor-pointer"
+                checked={selectedOffer === "All"}
+                onChange={() => updateFilter("offers", "All")}
+              />
+
+              All Products
+
+            </label>
+
+            <label className="flex items-center gap-2 mb-2">
+
+              <input
+                type="radio"
+                className="accent-green-600 cursor-pointer"
+                checked={selectedOffer === "Discounted"}
+                onChange={() =>
+                  updateFilter("offers", "Discounted")
+                }
+              />
+
+              Offers & Discounts
+
+            </label>
 
           </div>
 

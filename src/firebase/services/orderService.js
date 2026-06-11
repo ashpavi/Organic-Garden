@@ -11,6 +11,7 @@ export const createOrder = async (orderData) => {
     ...orderData,
     userId: orderData.userId,
     status: "Processing",
+    paymentStatus: "Pending Payment",
     createdAt: new Date()
   });
 

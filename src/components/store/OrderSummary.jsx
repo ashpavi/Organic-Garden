@@ -9,7 +9,7 @@ export default function OrderSummary({ subtotal }) {
 
   const isFreeDelivery = subtotal >= 5000;
 
-  const DELIVERY_FEE = !isFreeDelivery && subtotal > 0 ? 350 : 0;
+  const DELIVERY_FEE = !isFreeDelivery && subtotal > 0 ? 450 : 0;
 
   const total = subtotal + DELIVERY_FEE;
 
@@ -37,7 +37,7 @@ export default function OrderSummary({ subtotal }) {
       {!isFreeDelivery && subtotal > 0 && (
         <div className="flex justify-between text-gray-600">
           <span>Delivery</span>
-          <span>{formatPrice(350)}</span>
+          <span>{formatPrice(450)}</span>
         </div>
       )}
 
