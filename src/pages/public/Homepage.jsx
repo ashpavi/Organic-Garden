@@ -137,8 +137,7 @@ export default function HomePage() {
   />
 
   {/* SOFT ORGANIC OVERLAY */}
-  <div className="absolute inset-0 bg-gradient-to-t from-green-900/70 via-green-800/40 to-transparent group-hover:from-green-900/80 transition"></div>
-
+<div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent group-hover:from-black/85 transition duration-300"></div>
   
   {/* TEXT */}
 <div className="absolute inset-0 flex items-center justify-center text-center p-3">

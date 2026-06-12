@@ -71,7 +71,7 @@ export default function Carousel({ slides }) {
                 </p>
 
                 <Link to="/products">
-                  <button className="mt-3 bg-white text-black px-5 py-2 rounded-full text-sm font-medium hover:bg-gray-200 transition">
+                  <button className="mt-3 bg-white text-black px-5 py-2 rounded-full text-sm font-medium hover:bg-gray-200 transition cursor-pointer">
                     Shop Collection
                   </button>
                 </Link>
