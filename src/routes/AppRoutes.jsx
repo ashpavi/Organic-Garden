@@ -49,6 +49,7 @@ import Overview from "../pages/superAdmin/Overview.jsx";
 import ManageAdmins from "../pages/superAdmin/ManageAdmins.jsx";
 import AdminBankDetails from "../pages/admin/AdminBankDetails.jsx";
 import AdminPromoSettings from "../pages/admin/AdminPromoSettings.jsx";
+import TermsConditions from "../pages/public/TermsandConditions.jsx";
 
 
 export default function AppRoutes() {
@@ -63,6 +64,7 @@ export default function AppRoutes() {
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/no-results" element={<NoResults />} />
+        <Route path="/terms" element={<TermsConditions />} />
         <Route path="/cart" element={<CartPage />} />
 
         {/* Protected Checkout */}

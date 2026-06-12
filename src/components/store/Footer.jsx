@@ -80,10 +80,9 @@ const Footer = () => {
             Company
           </h3>
           <ul className="space-y-4 text-sm">
-            <li><Link to="/aboutUs" className="hover:text-gray-300 transition">About Us</Link></li>
-            <li><Link to="/aboutUs" className="hover:text-gray-300 transition">Careers</Link></li>
+            <li><Link to="/aboutUs" className="hover:text-gray-300 transition">About Us</Link></li>            
             <li><Link to="/aboutUs" className="hover:text-gray-300 transition">Sustainability</Link></li>
-            <li><Link to="/aboutUs" className="hover:text-gray-300 transition">Terms of Service</Link></li>
+            <li><Link to="/terms" className="hover:text-gray-300 transition">Terms and Conditions</Link></li>
           </ul>
         </div>
 
